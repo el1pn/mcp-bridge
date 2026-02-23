@@ -1,19 +1,19 @@
 {
 	"name": "mcp-bridge",
 	"version": "1.0.0",
-	"description": "Cocos Creator MCP 桥接插件",
+	"description": "Cocos Creator MCP Bridge Plugin",
 	"author": "Firekula",
 	"main": "main.js",
 	"scene-script": "scene-script.js",
 	"main-menu": {
-		"MCP 桥接器/开启测试面板": {
+		"i18n:mcp_bridge/i18n:open_test_panel": {
 			"message": "mcp-bridge:open-test-panel"
 		}
 	},
 	"panel": {
 		"main": "panel/index.js",
 		"type": "dockable",
-		"title": "MCP 测试面板",
+		"title": "MCP Test Panel",
 		"width": 400,
 		"height": 300
 	},

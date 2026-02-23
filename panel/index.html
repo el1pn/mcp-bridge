@@ -1,59 +1,59 @@
 <div class="mcp-container">
 	<div class="tabs">
-		<ui-button id="tabMain" class="tab-button active">主页</ui-button>
-		<ui-button id="tabTest" class="tab-button">工具测试</ui-button>
-		<ui-button id="tabIpc" class="tab-button">IPC 测试</ui-button>
+		<ui-button id="tabMain" class="tab-button active" data-i18n="tab_main">Main</ui-button>
+		<ui-button id="tabTest" class="tab-button" data-i18n="tab_test">Tool Test</ui-button>
+		<ui-button id="tabIpc" class="tab-button" data-i18n="tab_ipc">IPC Test</ui-button>
 	</div>
 
 	<div id="panelMain" class="tab-content active">
 		<div class="toolbar">
 			<div class="ctrl-group">
-				<span>端口:</span>
+				<span data-i18n="port">Port:</span>
 				<ui-input id="portInput" style="width: 60px"></ui-input>
-				<ui-button id="btnToggle">启动</ui-button>
+				<ui-button id="btnToggle" data-i18n="start">Start</ui-button>
 			</div>
 			<div class="ctrl-group" style="margin-left: 10px">
-				<ui-checkbox id="autoStartCheck">自动启动</ui-checkbox>
+				<ui-checkbox id="autoStartCheck" data-i18n="auto_start">Auto Start</ui-checkbox>
 			</div>
 			<div class="spacer"></div>
-			<ui-button id="btnClear" class="transparent">清空日志</ui-button>
-			<ui-button id="btnCopy" class="transparent">复制全部</ui-button>
+			<ui-button id="btnClear" class="transparent" data-i18n="clear_logs">Clear Logs</ui-button>
+			<ui-button id="btnCopy" class="transparent" data-i18n="copy_all">Copy All</ui-button>
 		</div>
 		<div id="logConsole" class="log-view"></div>
 	</div>
 
 	<div id="panelTest" class="tab-content">
-		<!-- ... existing content ... -->
 		<div class="test-layout">
 			<div class="left-panel" id="testLeftPanel">
 				<div class="form-item">
-					<label>工具名称:</label>
-					<ui-input id="toolName" placeholder="选中下方列表填充"></ui-input>
+					<label data-i18n="tool_name">Tool Name:</label>
+					<ui-input id="toolName" data-i18n-placeholder="tool_name_placeholder"
+						placeholder="Select from list below"></ui-input>
 				</div>
-				<label>可用工具列表:</label>
+				<label data-i18n="tool_list">Available Tools:</label>
 				<div class="tools-list" id="toolsList"></div>
 			</div>
 
-			<!-- 拖动条 -->
 			<div class="resizer" id="testResizer"></div>
 
 			<div class="right-panel">
 				<div class="tool-description">
-					<label>工具说明:</label>
-					<div id="toolDescription" class="description-box">选择工具查看说明</div>
+					<label data-i18n="tool_desc_label">Description:</label>
+					<div id="toolDescription" class="description-box" data-i18n="tool_desc_placeholder">Select a
+						tool to view description</div>
 				</div>
 				<div class="flex-v">
-					<label>工具参数 (JSON):</label>
+					<label data-i18n="tool_params">Parameters (JSON):</label>
 					<textarea id="toolParams" spellcheck="false" placeholder="{}"></textarea>
 				</div>
 				<div class="button-group">
-					<ui-button id="testBtn" class="green">测试工具</ui-button>
-					<ui-button id="listToolsBtn">刷新列表</ui-button>
-					<ui-button id="clearTestBtn">清空结果</ui-button>
-					<ui-button id="probeApisBtn">探查 API</ui-button>
+					<ui-button id="testBtn" class="green" data-i18n="test_tool">Test Tool</ui-button>
+					<ui-button id="listToolsBtn" data-i18n="refresh_list">Refresh List</ui-button>
+					<ui-button id="clearTestBtn" data-i18n="clear_result">Clear Result</ui-button>
+					<ui-button id="probeApisBtn" data-i18n="probe_api">Probe API</ui-button>
 				</div>
 				<div class="flex-v">
-					<label>测试结果:</label>
+					<label data-i18n="test_result">Test Result:</label>
 					<textarea id="resultContent" readonly spellcheck="false"></textarea>
 				</div>
 			</div>
@@ -62,33 +62,26 @@
 
 	<div id="panelIpc" class="tab-content">
 		<div class="toolbar">
-			<ui-button id="btnScanIpc">扫描消息</ui-button>
-			<select
-				id="ipcFilter"
-				style="margin-left: 5px; background: #333; color: #ccc; border: 1px solid #555; height: 25px"
-			>
-				<option value="all">全部显示</option>
-				<option value="available">仅显示可用</option>
-				<option value="unavailable">仅显示不可用</option>
-				<option value="untested">仅显示未测试</option>
+			<ui-button id="btnScanIpc" data-i18n="scan_msg">Scan Messages</ui-button>
+			<select id="ipcFilter"
+				style="margin-left: 5px; background: #333; color: #ccc; border: 1px solid #555; height: 25px">
+				<option value="all" data-i18n="filter_all">Show All</option>
+				<option value="available" data-i18n="filter_available">Available Only</option>
+				<option value="unavailable" data-i18n="filter_unavailable">Unavailable Only</option>
+				<option value="untested" data-i18n="filter_untested">Untested Only</option>
 			</select>
 			<div class="spacer"></div>
-			<ui-button id="btnTestIpc" class="green">测试选中项</ui-button>
+			<ui-button id="btnTestIpc" class="green" data-i18n="test_selected">Test Selected</ui-button>
 		</div>
 		<div class="ipc-container" style="display: flex; flex: 1; flex-direction: column; min-height: 0">
 			<div class="ipc-list-header" style="padding: 5px; background: #222; border-bottom: 1px solid #444">
-				<ui-checkbox id="cbSelectAllIpc">全选/反选</ui-checkbox>
+				<ui-checkbox id="cbSelectAllIpc" data-i18n="select_all">Select/Deselect All</ui-checkbox>
 			</div>
-			<div
-				id="ipcList"
-				class="ipc-list"
-				style="flex: 1; overflow-y: auto; background: #1e1e1e; border: 1px solid #444"
-			></div>
+			<div id="ipcList" class="ipc-list"
+				style="flex: 1; overflow-y: auto; background: #1e1e1e; border: 1px solid #444"></div>
 			<div style="padding: 5px; border-top: 1px solid #444; display: flex; flex-direction: column">
-				<label>参数 (JSON):</label>
-				<textarea
-					id="ipcParams"
-					placeholder='例如: {"uuid": "..."}'
+				<label data-i18n="params_json">Parameters (JSON):</label>
+				<textarea id="ipcParams" data-i18n-placeholder="params_placeholder" placeholder='e.g. {"uuid": "..."}'
 					style="
 						height: 50px;
 						width: 100%;
@@ -97,19 +90,16 @@
 						color: #ccc;
 						border: 1px solid #444;
 						margin-bottom: 5px;
-					"
-				></textarea>
+					"></textarea>
 			</div>
-			<div
-				style="
+			<div style="
 					height: 100px;
 					display: flex;
 					flex-direction: column;
 					border-top: 1px solid #444;
 					padding-top: 5px;
-				"
-			>
-				<label>测试日志:</label>
+				">
+				<label data-i18n="test_log">Test Log:</label>
 				<textarea id="ipcLog" readonly style="flex: 1; font-family: monospace; font-size: 10px"></textarea>
 			</div>
 		</div>

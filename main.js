@@ -1209,7 +1209,7 @@ module.exports = {
 				Editor.assetdb.create(
 					scriptPath,
 					content ||
-						`const { ccclass, property } = cc._decorator;
+					`const { ccclass, property } = cc._decorator;
 
 @ccclass
 export default class NewScript extends cc.Component {
@@ -2385,7 +2385,7 @@ CCProgram fs %{
 						} else {
 							props[key] = typeof val;
 						}
-					} catch (e) {}
+					} catch (e) { }
 				});
 				return { name, exists: true, props };
 			};

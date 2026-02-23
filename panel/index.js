@@ -1,12 +1,24 @@
 "use strict";
 
-/**
- * MCP Bridge 插件面板脚本
- * 负责处理面板 UI 交互、与主进程通信以及提供测试工具界面。
- */
-
 const fs = require("fs");
 const { IpcUi } = require("../dist/IpcUi");
+
+function t(key) {
+	return Editor.T("mcp-bridge." + key);
+}
+
+function applyI18n(root) {
+	root.querySelectorAll("[data-i18n]").forEach((el) => {
+		const key = el.getAttribute("data-i18n");
+		const text = t(key);
+		if (text) el.textContent = text;
+	});
+	root.querySelectorAll("[data-i18n-placeholder]").forEach((el) => {
+		const key = el.getAttribute("data-i18n-placeholder");
+		const text = t(key);
+		if (text) el.placeholder = text;
+	});
+}
 
 Editor.Panel.extend({
 	/**
@@ -52,7 +64,7 @@ Editor.Panel.extend({
 	 */
 	ready() {
 		const root = this.shadowRoot;
-		// 获取 DOM 元素映射
+		applyI18n(root);
 		const els = {
 			port: root.querySelector("#portInput"),
 			btnToggle: root.querySelector("#btnToggle"),
@@ -131,7 +143,7 @@ Editor.Panel.extend({
 
 		root.querySelector("#btnCopy").addEventListener("confirm", () => {
 			require("electron").clipboard.writeText(els.logView.innerText);
-			Editor.success("日志已复制到剪贴板");
+			Editor.success(t("logs_copied"));
 		});
 
 		els.autoStart.addEventListener("change", (e) => {
@@ -150,7 +162,7 @@ Editor.Panel.extend({
 		if (probeBtn) {
 			probeBtn.addEventListener("confirm", () => {
 				Editor.Ipc.sendToMain("mcp-bridge:inspect-apis");
-				els.result.value = "API 探查指令已发送。请查看编辑器控制台 (Console) 获取详细报告。";
+				els.result.value = t("api_probe_sent");
 			});
 		}
 
@@ -181,7 +193,7 @@ Editor.Panel.extend({
 	 */
 	fetchTools(els) {
 		const url = `http://localhost:${els.port.value}/list-tools`;
-		els.result.value = "正在获取工具列表...";
+		els.result.value = t("fetching_tools");
 		fetch(url)
 			.then((r) => r.json())
 			.then((data) => {
@@ -200,10 +212,10 @@ Editor.Panel.extend({
 					els.toolsList.appendChild(item);
 				});
 				this.toolsMap = toolsMap;
-				els.result.value = `成功：加载了 ${data.tools.length} 个工具。`;
+				els.result.value = t("fetch_success").replace("{0}", data.tools.length);
 			})
 			.catch((e) => {
-				els.result.value = "获取失败: " + e.message;
+				els.result.value = t("fetch_failed") + e.message;
 			});
 	},
 
@@ -214,23 +226,23 @@ Editor.Panel.extend({
 	 */
 	showToolDescription(els, tool) {
 		if (!tool) {
-			els.toolDescription.textContent = "选择工具以查看说明";
+			els.toolDescription.textContent = t("select_tool_desc");
 			return;
 		}
 
-		let description = tool.description || "暂无描述";
+		let description = tool.description || t("no_description");
 		let inputSchema = tool.inputSchema;
 
 		let details = [];
 		if (inputSchema && inputSchema.properties) {
-			details.push("<b>参数说明:</b>");
+			details.push("<b>" + t("param_desc") + "</b>");
 			for (const [key, prop] of Object.entries(inputSchema.properties)) {
 				let propDesc = `- <code>${key}</code>`;
 				if (prop.description) {
 					propDesc += `: ${prop.description}`;
 				}
 				if (prop.required || (inputSchema.required && inputSchema.required.includes(key))) {
-					propDesc += " <span style='color:#f44'>(必填)</span>";
+					propDesc += " <span style='color:#f44'>" + t("required") + "</span>";
 				}
 				details.push(propDesc);
 			}
@@ -249,19 +261,19 @@ Editor.Panel.extend({
 		try {
 			args = JSON.parse(els.toolParams.value || "{}");
 		} catch (e) {
-			els.result.value = "JSON 格式错误: " + e.message;
+			els.result.value = t("json_error") + e.message;
 			return;
 		}
 
 		const body = { name: els.toolName.value, arguments: args };
-		els.result.value = "正在发送请求...";
+		els.result.value = t("sending_request");
 		fetch(url, { method: "POST", body: JSON.stringify(body) })
 			.then((r) => r.json())
 			.then((d) => {
 				els.result.value = JSON.stringify(d, null, 2);
 			})
 			.catch((e) => {
-				els.result.value = "测试异常: " + e.message;
+				els.result.value = t("test_error") + e.message;
 			});
 	},
 
@@ -322,7 +334,7 @@ Editor.Panel.extend({
 	updateUI(active) {
 		const btn = this.shadowRoot.querySelector("#btnToggle");
 		if (!btn) return;
-		btn.innerText = active ? "停止" : "启动";
+		btn.innerText = active ? t("stop") : t("start");
 		btn.style.backgroundColor = active ? "#aa4444" : "#44aa44";
 	},
 });
