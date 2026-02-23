@@ -1,1440 +1,1440 @@
 # Cocos Creator 2.4.12 IPC Messages Documentation
 
-本文档详细记录了Cocos Creator 2.4.12版本中定义的所有IPC（进程间通信）消息，包括它们的用途、参数以及返回值。
+This document records all IPC (Inter-Process Communication) messages defined in Cocos Creator version 2.4.12, including their purposes, parameters, and return values.
 
-## 目录
+## Table of Contents
 
-- [App相关IPC消息](#app相关ipc消息)
-- [Asset-DB相关IPC消息](#asset-db相关ipc消息)
-- [Dashboard相关IPC消息](#dashboard相关ipc消息)
-- [Scene相关IPC消息](#scene相关ipc消息)
-- [Editor相关IPC消息](#editor相关ipc消息)
-- [Selection相关IPC消息](#selection相关ipc消息)
-- [Scene-Animation相关IPC消息](#scene-animation相关ipc消息)
-- [Scene-Layout相关IPC消息](#scene-layout相关ipc消息)
-- [Metrics相关IPC消息](#metrics相关ipc消息)
-- [Package Template相关IPC消息](#package-template相关ipc消息)
-- [Additional Scene相关IPC消息](#additional-scene相关ipc消息)
-- [广播事件](#广播事件)
-- [渲染进程监听的事件](#渲染进程监听的事件)
+- [App IPC Messages](#app-ipc-messages)
+- [Asset-DB IPC Messages](#asset-db-ipc-messages)
+- [Dashboard IPC Messages](#dashboard-ipc-messages)
+- [Scene IPC Messages](#scene-ipc-messages)
+- [Editor IPC Messages](#editor-ipc-messages)
+- [Selection IPC Messages](#selection-ipc-messages)
+- [Scene-Animation IPC Messages](#scene-animation-ipc-messages)
+- [Scene-Layout IPC Messages](#scene-layout-ipc-messages)
+- [Metrics IPC Messages](#metrics-ipc-messages)
+- [Package Template IPC Messages](#package-template-ipc-messages)
+- [Additional Scene IPC Messages](#additional-scene-ipc-messages)
+- [Broadcast Events](#broadcast-events)
+- [Renderer Process Listeners](#renderer-process-listeners)
 
-## App相关IPC消息
+## App IPC Messages
 
 ### `app:explore-project`
 
-- **用途**: 打开项目所在文件夹
-- **参数**: 无
-- **返回值**: 无
-- **类型**: 主进程监听
-- **状态**: 可用
+- **Purpose**: Open the project folder.
+- **Parameters**: None.
+- **Return Value**: None.
+- **Type**: Listen by Main Process.
+- **Status**: Available.
 
 ### `app:explore-app`
 
-- **用途**: 打开应用程序所在文件夹
-- **参数**: 无
-- **返回值**: 无
-- **类型**: 主进程监听
-- **状态**: 可用
+- **Purpose**: Open the application folder.
+- **Parameters**: None.
+- **Return Value**: None.
+- **Type**: Listen by Main Process.
+- **Status**: Available.
 
 ### `app:build-project`
 
-- **用途**: 构建项目
-- **参数**: 包含构建选项的对象
-- **返回值**: 无
-- **类型**: 主进程监听
-- **状态**: 可用
+- **Purpose**: Build the project.
+- **Parameters**: Object containing build options.
+- **Return Value**: None.
+- **Type**: Listen by Main Process.
+- **Status**: Available.
 
 ### `app:query-cocos-templates`
 
-- **用途**: 查询Cocos模板
-- **参数**: 无
-- **返回值**: 模板列表
-- **类型**: 主进程监听
-- **状态**: 可用
+- **Purpose**: Query Cocos templates.
+- **Parameters**: None.
+- **Return Value**: List of templates.
+- **Type**: Listen by Main Process.
+- **Status**: Available.
 
 ### `app:query-android-apilevels`
 
-- **用途**: 查询Android API级别
-- **参数**: 无
-- **返回值**: API级别列表
-- **类型**: 主进程监听
-- **状态**: 可用
+- **Purpose**: Query Android API levels.
+- **Parameters**: None.
+- **Return Value**: List of API levels.
+- **Type**: Listen by Main Process.
+- **Status**: Available.
 
 ### `app:query-android-instant-apilevels`
 
-- **用途**: 查询Android Instant API级别
-- **参数**: 无
-- **返回值**: API级别列表
-- **类型**: 主进程监听
-- **状态**: 可用
+- **Purpose**: Query Android Instant API levels.
+- **Parameters**: None.
+- **Return Value**: List of API levels.
+- **Type**: Listen by Main Process.
+- **Status**: Available.
 
 ### `app:compile-project`
 
-- **用途**: 编译项目
-- **参数**: 编译选项对象
-- **返回值**: 无
-- **类型**: 主进程监听
-- **状态**: 可用
+- **Purpose**: Compile the project.
+- **Parameters**: Object containing compilation options.
+- **Return Value**: None.
+- **Type**: Listen by Main Process.
+- **Status**: Available.
 
 ### `app:open-cocos-console-log`
 
-- **用途**: 打开Cocos控制台日志
-- **参数**: 无
-- **返回值**: 无
-- **类型**: 主进程监听
-- **状态**: 可用
+- **Purpose**: Open the Cocos console log.
+- **Parameters**: None.
+- **Return Value**: None.
+- **Type**: Listen by Main Process.
+- **Status**: Available.
 
 ### `app:stop-compile`
 
-- **用途**: 停止编译
-- **参数**: 无
-- **返回值**: 无
-- **类型**: 主进程监听
-- **状态**: 可用
+- **Purpose**: Stop compilation.
+- **Parameters**: None.
+- **Return Value**: None.
+- **Type**: Listen by Main Process.
+- **Status**: Available.
 
 ### `app:run-project`
 
-- **用途**: 运行项目
-- **参数**: 包含平台信息的对象
-- **返回值**: 无
-- **类型**: 主进程监听
-- **状态**: 可用
+- **Purpose**: Run the project.
+- **Parameters**: Object containing platform information.
+- **Return Value**: None.
+- **Type**: Listen by Main Process.
+- **Status**: Available.
 
 ### `app:save-keystore`
 
-- **用途**: 保存密钥库
-- **参数**: 密钥库信息
-- **返回值**: 错误信息或成功确认
-- **类型**: 主进程监听
-- **状态**: 可用
+- **Purpose**: Save keystore.
+- **Parameters**: Keystore information.
+- **Return Value**: Error message or success confirmation.
+- **Type**: Listen by Main Process.
+- **Status**: Available.
 
 ### `app:update-build-preview-path`
 
-- **用途**: 更新构建预览路径
-- **参数**: 预览路径
-- **返回值**: 无
-- **类型**: 主进程监听
-- **状态**: 可用
+- **Purpose**: Update build preview path.
+- **Parameters**: Preview path.
+- **Return Value**: None.
+- **Type**: Listen by Main Process.
+- **Status**: Available.
 
 ### `app:update-android-instant-preview-path`
 
-- **用途**: 更新Android Instant预览路径
-- **参数**: 预览路径
-- **返回值**: 无
-- **类型**: 主进程监听
-- **状态**: 可用
+- **Purpose**: Update Android Instant preview path.
+- **Parameters**: Preview path.
+- **Return Value**: None.
+- **Type**: Listen by Main Process.
+- **Status**: Available.
 
 ### `app:play-on-device`
 
-- **用途**: 在设备上播放
-- **参数**: 平台信息
-- **返回值**: 无
-- **类型**: 主进程监听
-- **状态**: 可用
+- **Purpose**: Play on device.
+- **Parameters**: Platform information.
+- **Return Value**: None.
+- **Type**: Listen by Main Process.
+- **Status**: Available.
 
 ### `app:reload-on-device`
 
-- **用途**: 在设备上重新加载
-- **参数**: 无
-- **返回值**: 无
-- **类型**: 主进程监听
-- **状态**: 可用
+- **Purpose**: Reload on device.
+- **Parameters**: None.
+- **Return Value**: None.
+- **Type**: Listen by Main Process.
+- **Status**: Available.
 
 ### `app:query-plugin-scripts`
 
-- **用途**: 查询插件脚本
-- **参数**: 构建平台名称
-- **返回值**: 插件脚本列表
-- **类型**: 主进程监听
-- **状态**: 可用
+- **Purpose**: Query plugin scripts.
+- **Parameters**: Build platform name.
+- **Return Value**: List of plugin scripts.
+- **Type**: Listen by Main Process.
+- **Status**: Available.
 
 ### `app:rebuild-editor-engine`
 
-- **用途**: 重建编辑器引擎
-- **参数**: 回调函数
-- **返回值**: 错误信息
-- **类型**: 主进程监听
-- **状态**: 可用
+- **Purpose**: Rebuild editor engine.
+- **Parameters**: Callback function.
+- **Return Value**: Error message.
+- **Type**: Listen by Main Process.
+- **Status**: Available.
 
-## Asset-DB相关IPC消息
+## Asset-DB IPC Messages
 
 ### `asset-db:explore`
 
-- **用途**: 打开资源所在文件夹
-- **参数**: 资源URL
-- **返回值**: 无
-- **类型**: 主进程监听
-- **状态**: 可用
+- **Purpose**: Open the folder containing the asset.
+- **Parameters**: Asset URL.
+- **Return Value**: None.
+- **Type**: Listen by Main Process.
+- **Status**: Available.
 
 ### `asset-db:exists`
 
-- **用途**: 查询资源是否存在
-- **参数**: 资源URL
-- **返回值**: 存在性布尔值
-- **类型**: 主进程监听
-- **状态**: 可用
+- **Purpose**: Query if the asset exists.
+- **Parameters**: Asset URL.
+- **Return Value**: Boolean (existence).
+- **Type**: Listen by Main Process.
+- **Status**: Available.
 
 ### `asset-db:query-path-by-url`
 
-- **用途**: 根据URL查询路径
-- **参数**: 资源URL
-- **返回值**: 文件系统路径
-- **类型**: 主进程监听
-- **状态**: 可用
+- **Purpose**: Query path by URL.
+- **Parameters**: Asset URL.
+- **Return Value**: Filesystem path.
+- **Type**: Listen by Main Process.
+- **Status**: Available.
 
 ### `asset-db:query-uuid-by-url`
 
-- **用途**: 根据URL查询UUID
-- **参数**: 资源URL
-- **返回值**: UUID字符串
-- **类型**: 主进程监听
-- **状态**: 可用
+- **Purpose**: Query UUID by URL.
+- **Parameters**: Asset URL.
+- **Return Value**: UUID string.
+- **Type**: Listen by Main Process.
+- **Status**: Available.
 
 ### `asset-db:query-path-by-uuid`
 
-- **用途**: 根据UUID查询路径
-- **参数**: UUID字符串
-- **返回值**: 文件系统路径
-- **类型**: 主进程监听
-- **状态**: 可用
+- **Purpose**: Query path by UUID.
+- **Parameters**: UUID string.
+- **Return Value**: Filesystem path.
+- **Type**: Listen by Main Process.
+- **Status**: Available.
 
 ### `asset-db:query-url-by-uuid`
 
-- **用途**: 根据UUID查询URL
-- **参数**: UUID字符串
-- **返回值**: 资源URL
-- **类型**: 主进程监听
-- **状态**: 可用
+- **Purpose**: Query URL by UUID.
+- **Parameters**: UUID string.
+- **Return Value**: Asset URL.
+- **Type**: Listen by Main Process.
+- **Status**: Available.
 
 ### `asset-db:query-info-by-uuid`
 
-- **用途**: 根据UUID查询资源信息
-- **参数**: UUID字符串
-- **返回值**: 资源信息对象
-- **类型**: 主进程监听
-- **状态**: 可用
+- **Purpose**: Query asset info by UUID.
+- **Parameters**: UUID string.
+- **Return Value**: Asset info object.
+- **Type**: Listen by Main Process.
+- **Status**: Available.
 
 ### `asset-db:query-meta-info-by-uuid`
 
-- **用途**: 根据UUID查询元数据信息
-- **参数**: UUID字符串
-- **返回值**: 元数据信息对象
-- **类型**: 主进程监听
-- **状态**: 可用
+- **Purpose**: Query meta information by UUID.
+- **Parameters**: UUID string.
+- **Return Value**: Meta information object.
+- **Type**: Listen by Main Process.
+- **Status**: Available.
 
 ### `asset-db:deep-query`
 
-- **用途**: 深度查询资源
-- **参数**: 无
-- **返回值**: 完整资源数据库信息
-- **类型**: 主进程监听
-- **状态**: 可用
+- **Purpose**: Deep query assets.
+- **Parameters**: None.
+- **Return Value**: Full Asset Database information.
+- **Type**: Listen by Main Process.
+- **Status**: Available.
 
 ### `asset-db:query-assets`
 
-- **用途**: 查询资源
-- **参数**: 查询条件、类型
-- **返回值**: 资源列表
-- **类型**: 主进程监听
-- **状态**: 可用
+- **Purpose**: Query assets.
+- **Parameters**: Query criteria, type.
+- **Return Value**: List of assets.
+- **Type**: Listen by Main Process.
+- **Status**: Available.
 
 ### `asset-db:query-mounts`
 
-- **用途**: 查询挂载点
-- **参数**: 无
-- **返回值**: 挂载点列表
-- **类型**: 主进程监听
-- **状态**: 可用
+- **Purpose**: Query mount points.
+- **Parameters**: None.
+- **Return Value**: List of mount points.
+- **Type**: Listen by Main Process.
+- **Status**: Available.
 
 ### `asset-db:import-assets`
 
-- **参数**: 导入路径列表、目标路径、刷新标志
-- **用途**: 导入资源
-- **返回值**: 无
-- **类型**: 主进程监听
-- **状态**: 可用
+- **Purpose**: Import assets.
+- **Parameters**: Import path list, target path, refresh flag.
+- **Return Value**: None.
+- **Type**: Listen by Main Process.
+- **Status**: Available.
 
 ### `asset-db:create-asset`
 
-- **用途**: 创建资源
-- **参数**: URL、内容
-- **返回值**: 错误信息或创建结果
-- **类型**: 主进程监听
-- **状态**: 可用
+- **Purpose**: Create asset.
+- **Parameters**: URL, content.
+- **Return Value**: Error message or creation result.
+- **Type**: Listen by Main Process.
+- **Status**: Available.
 
 ### `asset-db:move-asset`
 
-- **用途**: 移动资源
-- **参数**: 源URL、目标URL、是否显示错误对话框
-- **返回值**: 错误信息或移动结果
-- **类型**: 主进程监听
-- **状态**: 可用
+- **Purpose**: Move asset.
+- **Parameters**: Source URL, target URL, show error dialog flag.
+- **Return Value**: Error message or move result.
+- **Type**: Listen by Main Process.
+- **Status**: Available.
 
 ### `asset-db:delete-assets`
 
-- **用途**: 删除资源
-- **参数**: URL数组
-- **返回值**: 错误信息或删除结果
-- **类型**: 主进程监听
-- **状态**: 可用
+- **Purpose**: Delete assets.
+- **Parameters**: URL array.
+- **Return Value**: Error message or deletion result.
+- **Type**: Listen by Main Process.
+- **Status**: Available.
 
 ### `asset-db:save-exists`
 
-- **用途**: 保存已存在的资源
-- **参数**: URL、内容
-- **返回值**: 错误信息或保存结果
-- **类型**: 主进程监听
-- **状态**: 可用
+- **Purpose**: Save existing asset.
+- **Parameters**: URL, content.
+- **Return Value**: Error message or save result.
+- **Type**: Listen by Main Process.
+- **Status**: Available.
 
 ### `asset-db:create-or-save`
 
-- **用途**: 创建或保存资源
-- **参数**: URL、内容
-- **返回值**: 错误信息或操作结果
-- **类型**: 主进程监听
-- **状态**: 可用
+- **Purpose**: Create or save asset.
+- **Parameters**: URL, content.
+- **Return Value**: Error message or operation result.
+- **Type**: Listen by Main Process.
+- **Status**: Available.
 
 ### `asset-db:save-meta`
 
-- **用途**: 保存元数据
-- **参数**: UUID、元数据对象
-- **返回值**: 无
-- **类型**: 主进程监听
-- **状态**: 可用
+- **Purpose**: Save metadata.
+- **Parameters**: UUID, metadata object.
+- **Return Value**: None.
+- **Type**: Listen by Main Process.
+- **Status**: Available.
 
 ### `asset-db:refresh`
 
-- **用途**: 刷新资源
-- **参数**: 路径（可选）
-- **返回值**: 错误信息或刷新结果
-- **类型**: 主进程监听
-- **状态**: 可用
+- **Purpose**: Refresh assets.
+- **Parameters**: Path (optional).
+- **Return Value**: Error message or refresh result.
+- **Type**: Listen by Main Process.
+- **Status**: Available.
 
 ### `asset-db:attach-mountpath`
 
-- **用途**: 挂载路径
-- **参数**: 挂载路径对象
-- **返回值**: 错误信息或挂载结果
-- **类型**: 主进程监听
-- **状态**: 可用
+- **Purpose**: Mount path.
+- **Parameters**: Mount path object.
+- **Return Value**: Error message or mount result.
+- **Type**: Listen by Main Process.
+- **Status**: Available.
 
 ### `asset-db:unattach-mountpath`
 
-- **用途**: 取消挂载路径
-- **参数**: 挂载路径
-- **返回值**: 错误信息或取消挂载结果
-- **类型**: 主进程监听
-- **状态**: 可用
+- **Purpose**: Unmount path.
+- **Parameters**: Mount path.
+- **Return Value**: Error message or unmount result.
+- **Type**: Listen by Main Process.
+- **Status**: Available.
 
 ### `asset-db:query-watch-state`
 
-- **用途**: 查询监听状态
-- **参数**: 无
-- **返回值**: 无（向主窗口发送状态）
-- **类型**: 主进程监听
-- **状态**: 可用
+- **Purpose**: Query watch state.
+- **Parameters**: None.
+- **Return Value**: None (sends state to main window).
+- **Type**: Listen by Main Process.
+- **Status**: Available.
 
 ### `asset-db:asset-changed`
 
-- **用途**: 资源变更处理
-- **参数**: 变更详情
-- **返回值**: 无
-- **类型**: 主进程监听
-- **状态**: 可用
+- **Purpose**: Asset change processing.
+- **Parameters**: Change details.
+- **Return Value**: None.
+- **Type**: Listen by Main Process.
+- **Status**: Available.
 
 ### `asset-db:asset-uuid-changed`
 
-- **用途**: 资源UUID变更处理
-- **参数**: 变更详情
-- **返回值**: 无
-- **类型**: 主进程监听
-- **状态**: 可用
+- **Purpose**: Asset UUID change processing.
+- **Parameters**: Change details.
+- **Return Value**: None.
+- **Type**: Listen by Main Process.
+- **Status**: Available.
 
 ### `asset-db:assets-moved`
 
-- **用途**: 资源移动处理
-- **参数**: 移动详情数组
-- **返回值**: 无
-- **类型**: 主进程监听
-- **状态**: 可用
+- **Purpose**: Assets moved processing.
+- **Parameters**: Move details array.
+- **Return Value**: None.
+- **Type**: Listen by Main Process.
+- **Status**: Available.
 
 ### `asset-db:assets-created`
 
-- **用途**: 资源创建处理
-- **参数**: 创建详情数组
-- **返回值**: 无
-- **类型**: 主进程监听
-- **状态**: 可用
+- **Purpose**: Assets created processing.
+- **Parameters**: Creation details array.
+- **Return Value**: None.
+- **Type**: Listen by Main Process.
+- **Status**: Available.
 
 ### `asset-db:assets-deleted`
 
-- **用途**: 资源删除处理
-- **参数**: 删除详情数组
-- **返回值**: 无
-- **类型**: 主进程监听
-- **状态**: 可用
+- **Purpose**: Assets deleted processing.
+- **Parameters**: Deletion details array.
+- **Return Value**: None.
+- **Type**: Listen by Main Process.
+- **Status**: Available.
 
 ### `asset-db:script-import-failed`
 
-- **用途**: 脚本导入失败处理
-- **参数**: 失败详情
-- **返回值**: 无
-- **类型**: 主进程监听
-- **状态**: 可用
+- **Purpose**: Script import failed processing.
+- **Parameters**: Failure details.
+- **Return Value**: None.
+- **Type**: Listen by Main Process.
+- **Status**: Available.
 
 ### `asset-db:meta-backup`
 
-- **用途**: 元数据备份处理
-- **参数**: 备份详情数组
-- **返回值**: 无
-- **类型**: 主进程监听
-- **状态**: 可用
+- **Purpose**: Metadata backup processing.
+- **Parameters**: Backup details array.
+- **Return Value**: None.
+- **Type**: Listen by Main Process.
+- **Status**: Available.
 
-## Dashboard相关IPC消息
+## Dashboard IPC Messages
 
 ### `app:query-recent`
 
-- **用途**: 查询最近打开的项目
-- **参数**: 无
-- **返回值**: 最近项目列表
-- **类型**: 主进程监听
-- **状态**: 不可用 (无响应)
+- **Purpose**: Query recently opened projects.
+- **Parameters**: None.
+- **Return Value**: Recent projects list.
+- **Type**: Listen by Main Process.
+- **Status**: Unavailable (No Response).
 
 ### `app:query-templates`
 
-- **用途**: 查询项目模板
-- **参数**: 无
-- **返回值**: 模板列表
-- **类型**: 主进程监听
-- **状态**: 不可用 (无响应)
+- **Purpose**: Query project templates.
+- **Parameters**: None.
+- **Return Value**: Templates list.
+- **Type**: Listen by Main Process.
+- **Status**: Unavailable (No Response).
 
 ### `app:create-project`
 
-- **用途**: 创建项目
-- **参数**: 项目配置对象
-- **返回值**: 错误信息或创建结果
-- **类型**: 主进程监听
-- **状态**: 不可用 (无响应)
+- **Purpose**: Create a project.
+- **Parameters**: Project config object.
+- **Return Value**: Error message or creation result.
+- **Type**: Listen by Main Process.
+- **Status**: Unavailable (No Response).
 
 ### `app:open-project`
 
-- **用途**: 打开项目
-- **参数**: 项目路径、是否需要登录
-- **返回值**: 错误信息或打开结果
-- **类型**: 主进程监听
-- **状态**: 不可用 (无响应)
+- **Purpose**: Open a project.
+- **Parameters**: Project path, login required flag.
+- **Return Value**: Error message or opening result.
+- **Type**: Listen by Main Process.
+- **Status**: Unavailable (No Response).
 
 ### `app:delete-project`
 
-- **用途**: 删除项目
-- **参数**: 项目路径
-- **返回值**: 无
-- **类型**: 主进程监听
-- **状态**: 不可用 (无响应)
+- **Purpose**: Delete a project.
+- **Parameters**: Project path.
+- **Return Value**: None.
+- **Type**: Listen by Main Process.
+- **Status**: Unavailable (No Response).
 
 ### `app:close-project`
 
-- **用途**: 关闭项目
-- **参数**: 项目路径
-- **返回值**: 无
-- **类型**: 主进程监听
-- **状态**: 不可用 (无响应)
+- **Purpose**: Close a project.
+- **Parameters**: Project path.
+- **Return Value**: None.
+- **Type**: Listen by Main Process.
+- **Status**: Unavailable (No Response).
 
 ### `app:window-minimize`
 
-- **用途**: 最小化窗口
-- **参数**: 无
-- **返回值**: 无
-- **类型**: 主进程监听
-- **状态**: 不可用 (无响应)
+- **Purpose**: Minimize window.
+- **Parameters**: None.
+- **Return Value**: None.
+- **Type**: Listen by Main Process.
+- **Status**: Unavailable (No Response).
 
 ### `app:window-close`
 
-- **用途**: 关闭窗口
-- **参数**: 无
-- **返回值**: 无
-- **类型**: 主进程监听
-- **状态**: 不可用 (无响应)
+- **Purpose**: Close window.
+- **Parameters**: None.
+- **Return Value**: None.
+- **Type**: Listen by Main Process.
+- **Status**: Unavailable (No Response).
 
 ### `app:get-last-create`
 
-- **用途**: 获取上次创建的项目
-- **参数**: 无
-- **返回值**: 上次创建的项目信息
-- **类型**: 主进程监听
-- **状态**: 不可用 (无响应)
+- **Purpose**: Get last created project.
+- **Parameters**: None.
+- **Return Value**: Last created project info.
+- **Type**: Listen by Main Process.
+- **Status**: Unavailable (No Response).
 
 ### `app:open-manual-doc`
 
-- **用途**: 打开手册文档
-- **参数**: 文档路径
-- **返回值**: 无
-- **类型**: 主进程监听
-- **状态**: 不可用 (无响应)
+- **Purpose**: Open manual documentation.
+- **Parameters**: Doc path.
+- **Return Value**: None.
+- **Type**: Listen by Main Process.
+- **Status**: Unavailable (No Response).
 
 ### `app:open-api-doc`
 
-- **用途**: 打开API文档
-- **参数**: 文档路径
-- **返回值**: 无
-- **类型**: 主进程监听
-- **状态**: 不可用 (无响应)
+- **Purpose**: Open API documentation.
+- **Parameters**: Doc path.
+- **Return Value**: None.
+- **Type**: Listen by Main Process.
+- **Status**: Unavailable (No Response).
 
 ### `app:query-last-create-path`
 
-- **用途**: 查询上次创建的路径
-- **参数**: 无
-- **返回值**: 上次创建的路径
-- **类型**: 主进程监听
-- **状态**: 不可用 (无响应)
+- **Purpose**: Query last creation path.
+- **Parameters**: None.
+- **Return Value**: Last creation path.
+- **Type**: Listen by Main Process.
+- **Status**: Unavailable (No Response).
 
-## Scene相关IPC消息
+## Scene IPC Messages
 
 ### `scene:is-ready`
 
-- **用途**: 检查场景编辑器是否准备就绪
-- **参数**: 无
-- **返回值**: 准备就绪状态
-- **类型**: 主进程监听
-- **状态**: 不可用 (无响应)
+- **Purpose**: Check if scene editor is ready.
+- **Parameters**: None.
+- **Return Value**: Readiness status.
+- **Type**: Listen by Main Process.
+- **Status**: Unavailable (No Response).
 
 ### `scene:new-scene`
 
-- **用途**: 创建新场景
-- **参数**: 无
-- **返回值**: 无
-- **类型**: 主进程监听
-- **状态**: 不可用 (无响应)
+- **Purpose**: Create a new scene.
+- **Parameters**: None.
+- **Return Value**: None.
+- **Type**: Listen by Main Process.
+- **Status**: Unavailable (No Response).
 
 ### `scene:saved`
 
-- **用途**: 场景保存完成后的通知
-- **参数**: 无
-- **返回值**: 无
-- **类型**: 广播事件
-- **状态**: 未测试
+- **Purpose**: Notification after scene saves.
+- **Parameters**: None.
+- **Return Value**: None.
+- **Type**: Broadcast Event.
+- **Status**: Untested.
 
 ### `scene:play-on-device`
 
-- **用途**: 在设备上播放场景
-- **参数**: 无
-- **返回值**: 无
-- **类型**: 广播事件
-- **状态**: 未测试
+- **Purpose**: Play scene on device.
+- **Parameters**: None.
+- **Return Value**: None.
+- **Type**: Broadcast Event.
+- **Status**: Untested.
 
 ### `scene:reload-on-device`
 
-- **用途**: 在设备上重新加载场景
-- **参数**: 无
-- **返回值**: 无
-- **类型**: 广播事件
-- **状态**: 未测试
+- **Purpose**: Reload scene on device.
+- **Parameters**: None.
+- **Return Value**: None.
+- **Type**: Broadcast Event.
+- **Status**: Untested.
 
 ### `scene:preview-server-scene-stashed`
 
-- **用途**: 预览服务器场景暂存
-- **参数**: 无
-- **返回值**: 无
-- **类型**: 主进程监听
-- **状态**: 不可用 (无响应)
+- **Purpose**: Preview server scene stashed.
+- **Parameters**: None.
+- **Return Value**: None.
+- **Type**: Listen by Main Process.
+- **Status**: Unavailable (No Response).
 
 ### `scene:load-package-scene-script`
 
-- **用途**: 加载包场景脚本
-- **参数**: 脚本路径、包名
-- **返回值**: 无
-- **类型**: 主进程监听
-- **状态**: 不可用 (无响应)
+- **Purpose**: Load package scene script.
+- **Parameters**: Script path, package name.
+- **Return Value**: None.
+- **Type**: Listen by Main Process.
+- **Status**: Unavailable (No Response).
 
 ### `scene:unload-package-scene-script`
 
-- **用途**: 卸载包场景脚本
-- **参数**: 脚本路径
-- **返回值**: 无
-- **类型**: 主进程监听
-- **状态**: 不可用 (无响应)
+- **Purpose**: Unload package scene script.
+- **Parameters**: Script path.
+- **Return Value**: None.
+- **Type**: Listen by Main Process.
+- **Status**: Unavailable (No Response).
 
 ### `scene:soft-reload`
 
-- **用途**: 软重载场景
-- **参数**: 重载参数
-- **返回值**: 无
-- **类型**: 主进程监听
-- **状态**: 不可用 (无响应)
+- **Purpose**: Soft reload scene.
+- **Parameters**: Reload parameters.
+- **Return Value**: None.
+- **Type**: Listen by Main Process.
+- **Status**: Unavailable (No Response).
 
 ### `scene:enter-prefab-edit-mode`
 
-- **用途**: 进入预制件编辑模式
-- **参数**: 预制件UUID
-- **返回值**: 无
-- **类型**: 主进程监听
-- **状态**: 可用
+- **Purpose**: Enter prefab edit mode.
+- **Parameters**: Prefab UUID.
+- **Return Value**: None.
+- **Type**: Listen by Main Process.
+- **Status**: Available.
 
 ### `scene:stash-and-save`
 
-- **用途**: 暂存并保存场景
-- **参数**: 无
-- **返回值**: 无
-- **类型**: 主进程监听
-- **状态**: 不可用 (无响应)
+- **Purpose**: Stash and save scene.
+- **Parameters**: None.
+- **Return Value**: None.
+- **Type**: Listen by Main Process.
+- **Status**: Unavailable (No Response).
 
 ### `scene:print-simulator-log`
 
-- **用途**: 打印模拟器日志
-- **参数**: 日志信息、日志类型
-- **返回值**: 无
-- **类型**: 主进程监听
-- **状态**: 不可用 (无响应)
+- **Purpose**: Print simulator log.
+- **Parameters**: Log message, log type.
+- **Return Value**: None.
+- **Type**: Listen by Main Process.
+- **Status**: Unavailable (No Response).
 
 ### `scene:generate-texture-packer-preview-files`
 
-- **用途**: 生成纹理打包预览文件
-- **参数**: 资源路径
-- **返回值**: 错误信息或操作结果
-- **类型**: 主进程监听
-- **状态**: 不可用 (无响应)
+- **Purpose**: Generate Texture Packer preview files.
+- **Parameters**: Asset path.
+- **Return Value**: Error message or result.
+- **Type**: Listen by Main Process.
+- **Status**: Unavailable (No Response).
 
 ### `scene:query-texture-packer-preview-files`
 
-- **用途**: 查询纹理打包预览文件
-- **参数**: 资源路径
-- **返回值**: 预览文件信息
-- **类型**: 主进程监听
-- **状态**: 可用
+- **Purpose**: Query Texture Packer preview files.
+- **Parameters**: Asset path.
+- **Return Value**: Preview file information.
+- **Type**: Listen by Main Process.
+- **Status**: Available.
 
 ### `scene:export-particle-plist`
 
-- **用途**: 导出粒子plist文件
-- **参数**: 粒子数据
-- **返回值**: 无
-- **类型**: 主进程监听
-- **状态**: 可用
+- **Purpose**: Export particle plist file.
+- **Parameters**: Particle data.
+- **Return Value**: None.
+- **Type**: Listen by Main Process.
+- **Status**: Available.
 
 ### `scene:update-edit-mode`
 
-- **用途**: 更新编辑模式
-- **参数**: 编辑模式信息
-- **返回值**: 无
-- **类型**: 主进程监听
-- **状态**: 可用
+- **Purpose**: Update edit mode.
+- **Parameters**: Edit mode information.
+- **Return Value**: None.
+- **Type**: Listen by Main Process.
+- **Status**: Available.
 
 ### `scene:undo`
 
-- **用途**: 撤销操作
-- **参数**: 无
-- **返回值**: 无
-- **类型**: 主进程监听
-- **状态**: 可用
+- **Purpose**: Undo operation.
+- **Parameters**: None.
+- **Return Value**: None.
+- **Type**: Listen by Main Process.
+- **Status**: Available.
 
 ### `scene:redo`
 
-- **用途**: 重做操作
-- **参数**: 无
-- **返回值**: 无
-- **类型**: 主进程监听
-- **状态**: 可用
+- **Purpose**: Redo operation.
+- **Parameters**: None.
+- **Return Value**: None.
+- **Type**: Listen by Main Process.
+- **Status**: Available.
 
 ### `scene:undo-record`
 
-- **用途**: 记录撤销操作
-- **参数**: 对象ID、操作信息
-- **返回值**: 无
-- **类型**: 主进程监听
-- **状态**: 可用
+- **Purpose**: Record Undo operation.
+- **Parameters**: Object ID, operation info.
+- **Return Value**: None.
+- **Type**: Listen by Main Process.
+- **Status**: Available.
 
 ### `scene:undo-commit`
 
-- **用途**: 提交撤销操作
-- **参数**: 无
-- **返回值**: 无
-- **类型**: 主进程监听
-- **状态**: 可用
+- **Purpose**: Commit Undo operation.
+- **Parameters**: None.
+- **Return Value**: None.
+- **Type**: Listen by Main Process.
+- **Status**: Available.
 
 ### `scene:undo-cancel`
 
-- **用途**: 取消撤销操作
-- **参数**: 无
-- **返回值**: 无
-- **类型**: 主进程监听
-- **状态**: 可用
+- **Purpose**: Cancel Undo operation.
+- **Parameters**: None.
+- **Return Value**: None.
+- **Type**: Listen by Main Process.
+- **Status**: Available.
 
 ### `scene:query-dirty-state`
 
-- **用途**: 查询场景脏状态
-- **参数**: 无
-- **返回值**: 脏状态信息
-- **类型**: 主进程监听
-- **状态**: 可用
+- **Purpose**: Query scene dirty state.
+- **Parameters**: None.
+- **Return Value**: Dirty state info.
+- **Type**: Listen by Main Process.
+- **Status**: Available.
 
 ### `scene:query-group-list`
 
-- **用途**: 查询分组列表
-- **参数**: 无
-- **返回值**: 分组列表
-- **类型**: 主进程监听
-- **状态**: 可用
+- **Purpose**: Query group list.
+- **Parameters**: None.
+- **Return Value**: Group list.
+- **Type**: Listen by Main Process.
+- **Status**: Available.
 
 ### `scene:query-hierarchy`
 
-- **用途**: 查询场景层级结构
-- **参数**: 无
-- **返回值**: 场景UUID和节点层次
-- **类型**: 主进程监听
-- **状态**: 可用
+- **Purpose**: Query scene hierarchy structure.
+- **Parameters**: None.
+- **Return Value**: Scene UUID and node hierarchy.
+- **Type**: Listen by Main Process.
+- **Status**: Available.
 
 ### `scene:query-nodes-by-comp-name`
 
-- **用途**: 根据组件名称查询节点
-- **参数**: 组件名称
-- **返回值**: 节点UUID列表
-- **类型**: 主进程监听
-- **状态**: 可用
+- **Purpose**: Query nodes by component name.
+- **Parameters**: Component name.
+- **Return Value**: Node UUID list.
+- **Type**: Listen by Main Process.
+- **Status**: Available.
 
 ### `scene:query-node`
 
-- **用途**: 查询节点信息
-- **参数**: 节点UUID
-- **返回值**: 节点信息
-- **类型**: 主进程监听
-- **状态**: 可用
+- **Purpose**: Query node info.
+- **Parameters**: Node UUID.
+- **Return Value**: Node info.
+- **Type**: Listen by Main Process.
+- **Status**: Available.
 
 ### `scene:query-node-info`
 
-- **用途**: 查询节点详细信息
-- **参数**: 节点UUID、类型
-- **返回值**: 节点详细信息
-- **类型**: 主进程监听
-- **状态**: 可用
+- **Purpose**: Query detailed node info.
+- **Parameters**: Node UUID, type.
+- **Return Value**: Detailed node info.
+- **Type**: Listen by Main Process.
+- **Status**: Available.
 
 ### `scene:query-node-functions`
 
-- **用途**: 查询节点函数
-- **参数**: 节点UUID
-- **返回值**: 节点函数列表
-- **类型**: 主进程监听
-- **状态**: 可用
+- **Purpose**: Query node functions.
+- **Parameters**: Node UUID.
+- **Return Value**: Node function list.
+- **Type**: Listen by Main Process.
+- **Status**: Available.
 
 ### `scene:choose-last-rigid-body`
 
-- **用途**: 选择上一个刚体
-- **参数**: 当前节点UUID
-- **返回值**: 无
-- **类型**: 主进程监听
-- **状态**: 可用
+- **Purpose**: Choose previous rigid body.
+- **Parameters**: Current node UUID.
+- **Return Value**: None.
+- **Type**: Listen by Main Process.
+- **Status**: Available.
 
 ### `scene:choose-next-rigid-body`
 
-- **用途**: 选择下一个刚体
-- **参数**: 当前节点UUID
-- **返回值**: 无
-- **类型**: 主进程监听
-- **状态**: 可用
+- **Purpose**: Choose next rigid body.
+- **Parameters**: Current node UUID.
+- **Return Value**: None.
+- **Type**: Listen by Main Process.
+- **Status**: Available.
 
 ### `scene:is-child-class-of`
 
-- **用途**: 检查是否为子类
-- **参数**: 类ID、父类ID
-- **返回值**: 是否为子类的布尔值
-- **类型**: 主进程监听
-- **状态**: 可用
+- **Purpose**: Check if it is a child class.
+- **Parameters**: Class ID, Parent class ID.
+- **Return Value**: Boolean.
+- **Type**: Listen by Main Process.
+- **Status**: Available.
 
 ### `scene:has-copied-component`
 
-- **用途**: 检查是否有复制的组件
-- **参数**: 无
-- **返回值**: 是否有复制组件的布尔值
-- **类型**: 主进程监听
-- **状态**: 可用
+- **Purpose**: Check if there's a copied component.
+- **Parameters**: None.
+- **Return Value**: Boolean.
+- **Type**: Listen by Main Process.
+- **Status**: Available.
 
 ### `scene:query-animation-hierarchy`
 
-- **用途**: 查询动画层级
-- **参数**: 节点UUID
-- **返回值**: 动画层级结构
-- **类型**: 主进程监听
-- **状态**: 可用
+- **Purpose**: Query animation hierarchy.
+- **Parameters**: Node UUID.
+- **Return Value**: Animation hierarchy structure.
+- **Type**: Listen by Main Process.
+- **Status**: Available.
 
 ### `scene:query-animation-list`
 
-- **用途**: 查询动画列表
-- **参数**: 节点UUID
-- **返回值**: 动画剪辑UUID列表
-- **类型**: 主进程监听
-- **状态**: 可用
+- **Purpose**: Query animation list.
+- **Parameters**: Node UUID.
+- **Return Value**: Animation clip UUID list.
+- **Type**: Listen by Main Process.
+- **Status**: Available.
 
 ### `scene:query-animation-properties`
 
-- **用途**: 查询动画属性
-- **参数**: 节点UUID
-- **返回值**: 动画属性列表
-- **类型**: 主进程监听
-- **状态**: 可用
+- **Purpose**: Query animation properties.
+- **Parameters**: Node UUID.
+- **Return Value**: Animation property list.
+- **Type**: Listen by Main Process.
+- **Status**: Available.
 
 ### `scene:query-animation-record`
 
-- **用途**: 查询动画记录状态
-- **参数**: 无
-- **返回值**: 动画记录状态信息
-- **类型**: 主进程监听
-- **状态**: 可用
+- **Purpose**: Query animation record state.
+- **Parameters**: None.
+- **Return Value**: Animation record state info.
+- **Type**: Listen by Main Process.
+- **Status**: Available.
 
 ### `scene:query-animation-clip`
 
-- **用途**: 查询动画剪辑
-- **参数**: 动画剪辑UUID
-- **返回值**: 动画剪辑序列化数据
-- **类型**: 主进程监听
-- **状态**: 可用
+- **Purpose**: Query animation clip.
+- **Parameters**: Animation clip UUID.
+- **Return Value**: Animation clip serialized data.
+- **Type**: Listen by Main Process.
+- **Status**: Available.
 
 ### `scene:query-asset-info`
 
-- **用途**: 查询资源信息
-- **参数**: 资源UUID
-- **返回值**: 资源信息
-- **类型**: 主进程监听
-- **状态**: 可用
+- **Purpose**: Query asset info.
+- **Parameters**: Asset UUID.
+- **Return Value**: Asset info.
+- **Type**: Listen by Main Process.
+- **Status**: Available.
 
 ### `scene:query-nodes-by-usedby-uuid`
 
-- **用途**: 根据使用的资源UUID查询节点
-- **参数**: 资源UUID
-- **返回值**: 使用该资源的节点UUID列表
-- **类型**: 主进程监听
-- **状态**: 可用
+- **Purpose**: Query nodes by used asset UUID.
+- **Parameters**: Asset UUID.
+- **Return Value**: List of node UUIDs using the asset.
+- **Type**: Listen by Main Process.
+- **Status**: Available.
 
 ### `scene:create-nodes-by-uuids`
 
-- **用途**: 根据UUID创建节点
-- **参数**: UUID列表、位置、父节点、选项
-- **返回值**: 无
-- **类型**: 主进程监听
-- **状态**: 可用
+- **Purpose**: Create nodes by UUIDs.
+- **Parameters**: UUID list, position, parent node, options.
+- **Return Value**: None.
+- **Type**: Listen by Main Process.
+- **Status**: Available.
 
 ### `scene:create-node-by-classid`
 
-- **用途**: 根据类ID创建节点
-- **参数**: 类ID、位置、父节点、选项
-- **返回值**: 无
-- **类型**: 主进程监听
-- **状态**: 可用
+- **Purpose**: Create node by Class ID.
+- **Parameters**: Class ID, position, parent node, options.
+- **Return Value**: None.
+- **Type**: Listen by Main Process.
+- **Status**: Available.
 
 ### `scene:create-node-by-prefab`
 
-- **用途**: 根据预制件创建节点
-- **参数**: 预制件名称、位置、父节点、选项
-- **返回值**: 无
-- **类型**: 主进程监听
-- **状态**: 可用
+- **Purpose**: Create node by prefab.
+- **Parameters**: Prefab name, position, parent node, options.
+- **Return Value**: None.
+- **Type**: Listen by Main Process.
+- **Status**: Available.
 
 ### `scene:new-property`
 
-- **用途**: 创建新属性
-- **参数**: 属性信息
-- **返回值**: 无
-- **类型**: 主进程监听
-- **状态**: 可用
+- **Purpose**: Create new property.
+- **Parameters**: Property information.
+- **Return Value**: None.
+- **Type**: Listen by Main Process.
+- **Status**: Available.
 
 ### `scene:reset-property`
 
-- **用途**: 重置属性
-- **参数**: 属性信息
-- **返回值**: 无
-- **类型**: 主进程监听
-- **状态**: 可用
+- **Purpose**: Reset property.
+- **Parameters**: Property information.
+- **Return Value**: None.
+- **Type**: Listen by Main Process.
+- **Status**: Available.
 
 ### `scene:set-property`
 
-- **用途**: 设置属性
-- **参数**: 属性信息
-- **返回值**: 无
-- **类型**: 主进程监听
-- **状态**: 可用
+- **Purpose**: Set property.
+- **Parameters**: Property information.
+- **Return Value**: None.
+- **Type**: Listen by Main Process.
+- **Status**: Available.
 
 ### `scene:add-component`
 
-- **用途**: 添加组件
-- **参数**: 节点UUID、组件名称
-- **返回值**: 无
-- **类型**: 主进程监听
-- **状态**: 可用
+- **Purpose**: Add component.
+- **Parameters**: Node UUID, component name.
+- **Return Value**: None.
+- **Type**: Listen by Main Process.
+- **Status**: Available.
 
 ### `scene:remove-component`
 
-- **用途**: 移除组件
-- **参数**: 节点UUID、组件ID
-- **返回值**: 无
-- **类型**: 主进程监听
-- **状态**: 可用
+- **Purpose**: Remove component.
+- **Parameters**: Node UUID, component ID.
+- **Return Value**: None.
+- **Type**: Listen by Main Process.
+- **Status**: Available.
 
 ### `scene:reset-node`
 
-- **用途**: 重置节点
-- **参数**: 节点UUID
-- **返回值**: 无
-- **类型**: 主进程监听
-- **状态**: 可用
+- **Purpose**: Reset node.
+- **Parameters**: Node UUID.
+- **Return Value**: None.
+- **Type**: Listen by Main Process.
+- **Status**: Available.
 
 ### `scene:reset-all`
 
-- **用途**: 重置所有组件
-- **参数**: 节点UUID
-- **返回值**: 无
-- **类型**: 主进程监听
-- **状态**: 可用
+- **Purpose**: Reset all components.
+- **Parameters**: Node UUID.
+- **Return Value**: None.
+- **Type**: Listen by Main Process.
+- **Status**: Available.
 
 ### `scene:move-up-component`
 
-- **用途**: 向上移动组件
-- **参数**: 节点UUID、组件ID
-- **返回值**: 无
-- **类型**: 主进程监听
-- **状态**: 可用
+- **Purpose**: Move component up.
+- **Parameters**: Node UUID, component ID.
+- **Return Value**: None.
+- **Type**: Listen by Main Process.
+- **Status**: Available.
 
 ### `scene:move-down-component`
 
-- **用途**: 向下移动组件
-- **参数**: 节点UUID、组件ID
-- **返回值**: 无
-- **类型**: 主进程监听
-- **状态**: 可用
+- **Purpose**: Move component down.
+- **Parameters**: Node UUID, component ID.
+- **Return Value**: None.
+- **Type**: Listen by Main Process.
+- **Status**: Available.
 
 ### `scene:reset-component`
 
-- **用途**: 重置组件
-- **参数**: 节点UUID、组件ID
-- **返回值**: 无
-- **类型**: 主进程监听
-- **状态**: 可用
+- **Purpose**: Reset component.
+- **Parameters**: Node UUID, component ID.
+- **Return Value**: None.
+- **Type**: Listen by Main Process.
+- **Status**: Available.
 
 ### `scene:copy-component`
 
-- **用途**: 复制组件
-- **参数**: 组件ID
-- **返回值**: 无
-- **类型**: 主进程监听
-- **状态**: 可用
+- **Purpose**: Copy component.
+- **Parameters**: Component ID.
+- **Return Value**: None.
+- **Type**: Listen by Main Process.
+- **Status**: Available.
 
 ### `scene:paste-component`
 
-- **用途**: 粘贴组件
-- **参数**: 节点UUID
-- **返回值**: 无
-- **类型**: 主进程监听
-- **状态**: 可用
+- **Purpose**: Paste component.
+- **Parameters**: Node UUID.
+- **Return Value**: None.
+- **Type**: Listen by Main Process.
+- **Status**: Available.
 
 ### `scene:move-nodes`
 
-- **用途**: 移动节点
-- **参数**: 节点UUID列表、位置、父节点
-- **返回值**: 无
-- **类型**: 主进程监听
-- **状态**: 不可用 (无响应)
+- **Purpose**: Move nodes.
+- **Parameters**: Node UUID list, position, parent node.
+- **Return Value**: None.
+- **Type**: Listen by Main Process.
+- **Status**: Unavailable (No Response).
 
 ### `scene:delete-nodes`
 
-- **用途**: 删除节点
-- **参数**: 节点UUID列表
-- **返回值**: 无
-- **类型**: 主进程监听
-- **状态**: 不可用 (无响应)
+- **Purpose**: Delete nodes.
+- **Parameters**: Node UUID list.
+- **Return Value**: None.
+- **Type**: Listen by Main Process.
+- **Status**: Unavailable (No Response).
 
 ### `scene:copy-nodes`
 
-- **用途**: 复制节点
-- **参数**: 节点UUID列表
-- **返回值**: 无
-- **类型**: 主进程监听
-- **状态**: 不可用 (无响应)
+- **Purpose**: Copy nodes.
+- **Parameters**: Node UUID list.
+- **Return Value**: None.
+- **Type**: Listen by Main Process.
+- **Status**: Unavailable (No Response).
 
 ### `scene:paste-nodes`
 
-- **用途**: 粘贴节点
-- **参数**: 无
-- **返回值**: 无
-- **类型**: 主进程监听
-- **状态**: 不可用 (无响应)
+- **Purpose**: Paste nodes.
+- **Parameters**: None.
+- **Return Value**: None.
+- **Type**: Listen by Main Process.
+- **Status**: Unavailable (No Response).
 
 ### `scene:duplicate-nodes`
 
-- **用途**: 复制节点（Duplicate）
-- **参数**: 节点UUID列表
-- **返回值**: 无
-- **类型**: 主进程监听
-- **状态**: 不可用 (无响应)
+- **Purpose**: Duplicate nodes.
+- **Parameters**: Node UUID list.
+- **Return Value**: None.
+- **Type**: Listen by Main Process.
+- **Status**: Unavailable (No Response).
 
 ### `scene:create-prefab`
 
-- **用途**: 创建预制件
-- **参数**: 节点UUID、预制件路径
-- **返回值**: 无
-- **类型**: 主进程监听
-- **状态**: 可用
+- **Purpose**: Create prefab.
+- **Parameters**: Node UUID, prefab path.
+- **Return Value**: None.
+- **Type**: Listen by Main Process.
+- **Status**: Available.
 
 ### `scene:apply-prefab`
 
-- **用途**: 应用预制件
-- **参数**: 节点UUID、预制件路径
-- **返回值**: 无
-- **类型**: 主进程监听
-- **状态**: 可用
+- **Purpose**: Apply prefab.
+- **Parameters**: Node UUID, prefab path.
+- **Return Value**: None.
+- **Type**: Listen by Main Process.
+- **Status**: Available.
 
 ### `scene:revert-prefab`
 
-- **用途**: 还原预制件
-- **参数**: 节点UUID、预制件路径
-- **返回值**: 无
-- **类型**: 主进程监听
-- **状态**: 不可用 (无响应)
+- **Purpose**: Revert prefab.
+- **Parameters**: Node UUID, prefab path.
+- **Return Value**: None.
+- **Type**: Listen by Main Process.
+- **Status**: Unavailable (No Response).
 
 ### `scene:set-prefab-sync`
 
-- **用途**: 设置预制件同步
-- **参数**: 节点UUID
-- **返回值**: 无
-- **类型**: 主进程监听
-- **状态**: 不可用 (无响应)
+- **Purpose**: Set prefab synchronization.
+- **Parameters**: Node UUID.
+- **Return Value**: None.
+- **Type**: Listen by Main Process.
+- **Status**: Unavailable (No Response).
 
 ### `scene:break-prefab-instance`
 
-- **用途**: 打破预制件实例关联
-- **参数**: 无
-- **返回值**: 无
-- **类型**: 主进程监听
-- **状态**: 不可用 (无响应)
+- **Purpose**: Break prefab instance association.
+- **Parameters**: None.
+- **Return Value**: None.
+- **Type**: Listen by Main Process.
+- **Status**: Unavailable (No Response).
 
 ### `scene:link-prefab`
 
-- **用途**: 链接预制件
-- **参数**: 无
-- **返回值**: 无
-- **类型**: 主进程监听
-- **状态**: 不可用 (无响应)
+- **Purpose**: Link prefab.
+- **Parameters**: None.
+- **Return Value**: None.
+- **Type**: Listen by Main Process.
+- **Status**: Unavailable (No Response).
 
 ### `scene:regenerate-polygon-points`
 
-- **用途**: 重新生成多边形点
-- **参数**: 节点UUID
-- **返回值**: 无
-- **类型**: 主进程监听
-- **状态**: 不可用 (无响应)
+- **Purpose**: Regenerate polygon points.
+- **Parameters**: Node UUID.
+- **Return Value**: None.
+- **Type**: Listen by Main Process.
+- **Status**: Unavailable (No Response).
 
 ### `scene:search-skeleton-animation-clips`
 
-- **用途**: 搜索骨骼动画剪辑
-- **参数**: 节点UUID
-- **返回值**: 无
-- **类型**: 主进程监听
-- **状态**: 不可用 (无响应)
+- **Purpose**: Search skeleton animation clips.
+- **Parameters**: Node UUID.
+- **Return Value**: None.
+- **Type**: Listen by Main Process.
+- **Status**: Unavailable (No Response).
 
 ### `scene:change-node-lock`
 
-- **用途**: 更改节点锁定状态
-- **参数**: 节点UUID、锁定状态
-- **返回值**: 无
-- **类型**: 主进程监听
-- **状态**: 不可用 (无响应)
+- **Purpose**: Change node lock state.
+- **Parameters**: Node UUID, lock state.
+- **Return Value**: None.
+- **Type**: Listen by Main Process.
+- **Status**: Unavailable (No Response).
 
 ### `scene:copy-editor-camera-data-to-nodes`
 
-- **用途**: 将编辑器相机数据复制到节点
-- **参数**: 无
-- **返回值**: 无
-- **类型**: 主进程监听
-- **状态**: 可用
+- **Purpose**: Copy editor camera data to nodes.
+- **Parameters**: None.
+- **Return Value**: None.
+- **Type**: Listen by Main Process.
+- **Status**: Available.
 
 ### `scene:set-group-sync`
 
-- **用途**: 设置组同步
-- **参数**: 节点UUID、组名
-- **返回值**: 无
-- **类型**: 主进程监听
-- **状态**: 不可用 (无响应)
+- **Purpose**: Set group synchronization.
+- **Parameters**: Node UUID, group name.
+- **Return Value**: None.
+- **Type**: Listen by Main Process.
+- **Status**: Unavailable (No Response).
 
 ### `scene:generate_attached_node`
 
-- **用途**: 生成附加节点
-- **参数**: 节点UUID
-- **返回值**: 无
-- **类型**: 主进程监听
-- **状态**: 不可用 (无响应)
+- **Purpose**: Generate attached node.
+- **Parameters**: Node UUID.
+- **Return Value**: None.
+- **Type**: Listen by Main Process.
+- **Status**: Unavailable (No Response).
 
-## Editor相关IPC消息
+## Editor IPC Messages
 
 ### `editor:dragstart`
 
-- **用途**: 开始拖拽操作
-- **参数**: 无
-- **返回值**: 无
-- **类型**: 主进程监听
-- **状态**: 不可用 (无响应)
+- **Purpose**: Start drag operation.
+- **Parameters**: None.
+- **Return Value**: None.
+- **Type**: Listen by Main Process.
+- **Status**: Unavailable (No Response).
 
 ### `editor:dragend`
 
-- **用途**: 结束拖拽操作
-- **参数**: 无
-- **返回值**: 无
-- **类型**: 主进程监听
-- **状态**: 不可用 (无响应)
+- **Purpose**: End drag operation.
+- **Parameters**: None.
+- **Return Value**: None.
+- **Type**: Listen by Main Process.
+- **Status**: Unavailable (No Response).
 
 ### `editor:project-profile-updated`
 
-- **用途**: 项目配置文件更新
-- **参数**: 配置对象
-- **返回值**: 无
-- **类型**: 主进程监听
-- **状态**: 可用
+- **Purpose**: Project profile updated.
+- **Parameters**: Profile object.
+- **Return Value**: None.
+- **Type**: Listen by Main Process.
+- **Status**: Available.
 
-## Selection相关IPC消息
+## Selection IPC Messages
 
 ### `selection:selected`
 
-- **用途**: 选择节点
-- **参数**: 类型、ID
-- **返回值**: 无
-- **类型**: 主进程监听
-- **状态**: 可用
+- **Purpose**: Select node.
+- **Parameters**: Type, ID.
+- **Return Value**: None.
+- **Type**: Listen by Main Process.
+- **Status**: Available.
 
 ### `selection:unselected`
 
-- **用途**: 取消选择节点
-- **参数**: 类型、ID
-- **返回值**: 无
-- **类型**: 主进程监听
-- **状态**: 不可用 (无响应)
+- **Purpose**: Deselect node.
+- **Parameters**: Type, ID.
+- **Return Value**: None.
+- **Type**: Listen by Main Process.
+- **Status**: Unavailable (No Response).
 
 ### `selection:activated`
 
-- **用途**: 激活节点
-- **参数**: 类型、ID
-- **返回值**: 无
-- **类型**: 主进程监听
-- **状态**: 不可用 (无响应)
+- **Purpose**: Activate node.
+- **Parameters**: Type, ID.
+- **Return Value**: None.
+- **Type**: Listen by Main Process.
+- **Status**: Unavailable (No Response).
 
 ### `selection:deactivated`
 
-- **用途**: 取消激活节点
-- **参数**: 类型、ID
-- **返回值**: 无
-- **类型**: 主进程监听
-- **状态**: 不可用 (无响应)
+- **Purpose**: Deactivate node.
+- **Parameters**: Type, ID.
+- **Return Value**: None.
+- **Type**: Listen by Main Process.
+- **Status**: Unavailable (No Response).
 
 ### `selection:hoverin`
 
-- **用途**: 鼠标悬停进入节点
-- **参数**: 类型、ID
-- **返回值**: 无
-- **类型**: 主进程监听
-- **状态**: 不可用 (无响应)
+- **Purpose**: Hover in on node.
+- **Parameters**: Type, ID.
+- **Return Value**: None.
+- **Type**: Listen by Main Process.
+- **Status**: Unavailable (No Response).
 
 ### `selection:hoverout`
 
-- **用途**: 鼠标悬停离开节点
-- **参数**: 类型、ID
-- **返回值**: 无
-- **类型**: 主进程监听
-- **状态**: 不可用 (无响应)
+- **Purpose**: Hover out of node.
+- **Parameters**: Type, ID.
+- **Return Value**: None.
+- **Type**: Listen by Main Process.
+- **Status**: Unavailable (No Response).
 
-## Scene-Animation相关IPC消息
+## Scene-Animation IPC Messages
 
 ### `scene-animation:query-animation-time`
 
-- **用途**: 查询动画时间
-- **参数**: 动画剪辑信息
-- **返回值**: 时间信息
-- **类型**: 主进程监听
-- **状态**: 不可用 (无响应)
+- **Purpose**: Query animation time.
+- **Parameters**: Animation clip info.
+- **Return Value**: Time information.
+- **Type**: Listen by Main Process.
+- **Status**: Unavailable (No Response).
 
 ### `scene-animation:animation-time-changed`
 
-- **用途**: 动画时间改变
-- **参数**: 新的时间值
-- **返回值**: 无
-- **类型**: 主进程监听
-- **状态**: 不可用 (无响应)
+- **Purpose**: Animation time changed.
+- **Parameters**: New time value.
+- **Return Value**: None.
+- **Type**: Listen by Main Process.
+- **Status**: Unavailable (No Response).
 
 ### `scene-animation:animation-clip-changed`
 
-- **用途**: 动画剪辑改变
-- **参数**: 剪辑信息
-- **返回值**: 无
-- **类型**: 主进程监听
-- **状态**: 不可用 (无响应)
+- **Purpose**: Animation clip changed.
+- **Parameters**: Clip info.
+- **Return Value**: None.
+- **Type**: Listen by Main Process.
+- **Status**: Unavailable (No Response).
 
 ### `scene-animation:save-clip`
 
-- **用途**: 保存动画剪辑
-- **参数**: 无
-- **返回值**: 无
-- **类型**: 主进程监听
-- **状态**: 不可用 (无响应)
+- **Purpose**: Save animation clip.
+- **Parameters**: None.
+- **Return Value**: None.
+- **Type**: Listen by Main Process.
+- **Status**: Unavailable (No Response).
 
 ### `scene-animation:set-animation-speed`
 
-- **用途**: 设置动画速度
-- **参数**: 速度值
-- **返回值**: 无
-- **类型**: 主进程监听
-- **状态**: 不可用 (无响应)
+- **Purpose**: Set animation speed.
+- **Parameters**: Speed value.
+- **Return Value**: None.
+- **Type**: Listen by Main Process.
+- **Status**: Unavailable (No Response).
 
 ### `scene-animation:change-animation-record`
 
-- **用途**: 更改动画记录状态
-- **参数**: 记录状态
-- **返回值**: 无
-- **类型**: 主进程监听
-- **状态**: 不可用 (无响应)
+- **Purpose**: Change animation record state.
+- **Parameters**: Record state.
+- **Return Value**: None.
+- **Type**: Listen by Main Process.
+- **Status**: Unavailable (No Response).
 
 ### `scene-animation:mount-clip`
 
-- **用途**: 挂载动画剪辑
-- **参数**: 剪辑信息、选项
-- **返回值**: 无
-- **类型**: 主进程监听
-- **状态**: 不可用 (无响应)
+- **Purpose**: Mount animation clip.
+- **Parameters**: Clip info, options.
+- **Return Value**: None.
+- **Type**: Listen by Main Process.
+- **Status**: Unavailable (No Response).
 
 ### `scene-animation:change-animation-state`
 
-- **用途**: 更改动画播放状态
-- **参数**: 状态（播放/暂停）
-- **返回值**: 无
-- **类型**: 主进程监听
-- **状态**: 不可用 (无响应)
+- **Purpose**: Change animation playback state (Play/Pause).
+- **Parameters**: State.
+- **Return Value**: None.
+- **Type**: Listen by Main Process.
+- **Status**: Unavailable (No Response).
 
 ### `scene-animation:change-animation-current-clip`
 
-- **用途**: 更改当前动画剪辑
-- **参数**: 剪辑信息
-- **返回值**: 无
-- **类型**: 主进程监听
-- **状态**: 不可用 (无响应)
+- **Purpose**: Change current animation clip.
+- **Parameters**: Clip info.
+- **Return Value**: None.
+- **Type**: Listen by Main Process.
+- **Status**: Unavailable (No Response).
 
-## Scene-Layout相关IPC消息
+## Scene-Layout IPC Messages
 
 ### `scene-layout:center-nodes`
 
-- **用途**: 将摄像机中心对准节点
-- **参数**: 节点列表
-- **返回值**: 无
-- **类型**: 主进程监听
-- **状态**: 不可用 (无响应)
+- **Purpose**: Center camera on nodes.
+- **Parameters**: Node list.
+- **Return Value**: None.
+- **Type**: Listen by Main Process.
+- **Status**: Unavailable (No Response).
 
-## Metrics相关IPC消息
+## Metrics IPC Messages
 
 ### `metrics:track-event`
 
-- **用途**: 跟踪事件
-- **参数**: 事件类别、动作、标签等
-- **返回值**: 无
-- **类型**: 主进程监听
-- **状态**: 可用
+- **Purpose**: Track event.
+- **Parameters**: Category, action, label, etc.
+- **Return Value**: None.
+- **Type**: Listen by Main Process.
+- **Status**: Available.
 
 ### `editor:renderer-console-error`
 
-- **用途**: 发送渲染器控制台错误
-- **参数**: 错误堆栈信息
-- **返回值**: 无
-- **类型**: 主进程监听
-- **状态**: 可用
+- **Purpose**: Send renderer console error.
+- **Parameters**: Error stack info.
+- **Return Value**: None.
+- **Type**: Listen by Main Process.
+- **Status**: Available.
 
 ### `metrics:track-exception`
 
-- **用途**: 跟踪异常
-- **参数**: 异常信息
-- **返回值**: 无
-- **类型**: 主进程监听
-- **状态**: 可用
+- **Purpose**: Track exception.
+- **Parameters**: Exception info.
+- **Return Value**: None.
+- **Type**: Listen by Main Process.
+- **Status**: Available.
 
-## Package Template相关IPC消息
+## Package Template IPC Messages
 
 ### `package-template:clicked`
 
-- **用途**: 包模板被点击
-- **参数**: 无
-- **返回值**: 无
-- **类型**: 主进程监听
-- **状态**: 不可用 (无响应)
+- **Purpose**: Package template clicked.
+- **Parameters**: None.
+- **Return Value**: None.
+- **Type**: Listen by Main Process.
+- **Status**: Unavailable (No Response).
 
 ### `package-template:hello`
 
-- **用途**: 包模板的问候消息
-- **参数**: 事件对象
-- **返回值**: 无
-- **类型**: 广播事件
-- **状态**: 未测试
+- **Purpose**: Package template greeting message.
+- **Parameters**: Event object.
+- **Return Value**: None.
+- **Type**: Broadcast Event.
+- **Status**: Untested.
 
 ### `package-template:open`
 
-- **用途**: 打开包模板面板
-- **参数**: 无
-- **返回值**: 无
-- **类型**: 主进程监听
-- **状态**: 不可用 (无响应)
+- **Purpose**: Open package template panel.
+- **Parameters**: None.
+- **Return Value**: None.
+- **Type**: Listen by Main Process.
+- **Status**: Unavailable (No Response).
 
 ### `package-template:say-hello`
 
-- **用途**: 发送问候语
-- **参数**: 无
-- **返回值**: 无
-- **类型**: 主进程监听
-- **状态**: 不可用 (无响应)
+- **Purpose**: Send greeting.
+- **Parameters**: None.
+- **Return Value**: None.
+- **Type**: Listen by Main Process.
+- **Status**: Unavailable (No Response).
 
-## Additional Scene相关IPC消息
+## Additional Scene IPC Messages
 
 ### `asset-db:asset-changed`
 
-- **用途**: 资源变更处理
-- **参数**: 变更详情
-- **返回值**: 无
-- **类型**: 广播事件
-- **状态**: 可用
+- **Purpose**: Asset change processing.
+- **Parameters**: Change details.
+- **Return Value**: None.
+- **Type**: Broadcast Event.
+- **Status**: Available.
 
 ### `asset-db:assets-moved`
 
-- **用途**: 资源移动处理
-- **参数**: 移动详情数组
-- **返回值**: 无
-- **类型**: 广播事件
-- **状态**: 可用
+- **Purpose**: Assets moved processing.
+- **Parameters**: Move details array.
+- **Return Value**: None.
+- **Type**: Broadcast Event.
+- **Status**: Available.
 
 ### `asset-db:assets-created`
 
-- **用途**: 资源创建处理
-- **参数**: 创建详情数组
-- **返回值**: 无
-- **类型**: 广播事件
-- **状态**: 可用
+- **Purpose**: Assets created processing.
+- **Parameters**: Creation details array.
+- **Return Value**: None.
+- **Type**: Broadcast Event.
+- **Status**: Available.
 
 ### `asset-db:assets-deleted`
 
-- **用途**: 资源删除处理
-- **参数**: 删除详情数组
-- **返回值**: 无
-- **类型**: 广播事件
-- **状态**: 可用
+- **Purpose**: Assets deleted processing.
+- **Parameters**: Deletion details array.
+- **Return Value**: None.
+- **Type**: Broadcast Event.
+- **Status**: Available.
 
 ### `editor:ready`
 
-- **用途**: 编辑器就绪通知
-- **参数**: 无
-- **返回值**: 无
-- **类型**: 广播事件
-- **状态**: 未测试
+- **Purpose**: Editor ready notification.
+- **Parameters**: None.
+- **Return Value**: None.
+- **Type**: Broadcast Event.
+- **Status**: Untested.
 
 ### `editor:console-failed`
 
-- **用途**: 控制台失败消息
-- **参数**: 失败信息
-- **返回值**: 无
-- **类型**: 广播事件
-- **状态**: 未测试
+- **Purpose**: Console failure message.
+- **Parameters**: Failure info.
+- **Return Value**: None.
+- **Type**: Broadcast Event.
+- **Status**: Untested.
 
 ### `editor:console-warn`
 
-- **用途**: 控制台警告消息
-- **参数**: 警告信息
-- **返回值**: 无
-- **类型**: 广播事件
-- **状态**: 未测试
+- **Purpose**: Console warning message.
+- **Parameters**: Warning info.
+- **Return Value**: None.
+- **Type**: Broadcast Event.
+- **Status**: Untested.
 
 ### `editor:console-error`
 
-- **用途**: 控制台错误消息
-- **参数**: 错误信息
-- **返回值**: 无
-- **类型**: 广播事件
-- **状态**: 未测试
+- **Purpose**: Console error message.
+- **Parameters**: Error info.
+- **Return Value**: None.
+- **Type**: Broadcast Event.
+- **Status**: Untested.
 
 ### `editor:console-clear`
 
-- **用途**: 清空控制台
-- **参数**: 无
-- **返回值**: 无
-- **类型**: 广播事件
-- **状态**: 未测试
+- **Purpose**: Clear console.
+- **Parameters**: None.
+- **Return Value**: None.
+- **Type**: Broadcast Event.
+- **Status**: Untested.
 
 ### `compiler:state-changed`
 
-- **用途**: 编译器状态变化
-- **参数**: 状态
-- **返回值**: 无
-- **类型**: 广播事件
-- **状态**: 未测试
+- **Purpose**: Compiler state change.
+- **Parameters**: State.
+- **Return Value**: None.
+- **Type**: Broadcast Event.
+- **Status**: Untested.
 
 ### `preview-server:preview-port-changed`
 
-- **用途**: 预览服务器端口变化
-- **参数**: 无
-- **返回值**: 无
-- **类型**: 广播事件
-- **状态**: 未测试
+- **Purpose**: Preview server port change.
+- **Parameters**: None.
+- **Return Value**: None.
+- **Type**: Broadcast Event.
+- **Status**: Untested.
 
 ### `preview-server:connects-changed`
 
-- **用途**: 预览服务器连接数变化
-- **参数**: 连接数
-- **返回值**: 无
-- **类型**: 广播事件
-- **状态**: 未测试
+- **Purpose**: Preview server connection count change.
+- **Parameters**: Connection count.
+- **Return Value**: None.
+- **Type**: Broadcast Event.
+- **Status**: Untested.
 
 ### `im-plugin:update-im-html`
 
-- **用途**: 更新IM插件HTML
-- **参数**: HTML内容
-- **返回值**: 无
-- **类型**: 广播事件
-- **状态**: 未测试
+- **Purpose**: Update IM plugin HTML.
+- **Parameters**: HTML content.
+- **Return Value**: None.
+- **Type**: Broadcast Event.
+- **Status**: Untested.
 
 ### `asset-db:state-changed`
 
-- **用途**: 资源数据库状态变化
-- **参数**: 状态
-- **返回值**: 无
-- **类型**: 广播事件
-- **状态**: 未测试
+- **Purpose**: Asset Database state change.
+- **Parameters**: State.
+- **Return Value**: None.
+- **Type**: Broadcast Event.
+- **Status**: Untested.
 
 ### `asset-db:watch-state-changed`
 
-- **用途**: 资源数据库监听状态变化
-- **参数**: 状态
-- **返回值**: 无
-- **类型**: 广播事件
-- **状态**: 未测试
+- **Purpose**: Asset Database watch state change.
+- **Parameters**: State.
+- **Return Value**: None.
+- **Type**: Broadcast Event.
+- **Status**: Untested.
 
 ### `editor:online-status-changed`
 
-- **用途**: 编辑器在线状态变化
-- **参数**: 状态 ('online' 或 'offline')
-- **返回值**: 无
-- **类型**: 广播事件
-- **状态**: 未测试
+- **Purpose**: Editor online status change.
+- **Parameters**: State ('online' or 'offline').
+- **Return Value**: None.
+- **Type**: Broadcast Event.
+- **Status**: Untested.
 
 ### `scene:node-component-updated`
 
-- **用途**: 节点组件更新
-- **参数**: 包含节点、组件和属性信息的对象
-- **返回值**: 无
-- **类型**: 广播事件
-- **状态**: 未测试
+- **Purpose**: Node component updated.
+- **Parameters**: Object containing node, component, and property info.
+- **Return Value**: None.
+- **Type**: Broadcast Event.
+- **Status**: Untested.
 
 ### `scene:node-component-added`
 
-- **用途**: 节点组件添加
-- **参数**: 包含节点和组件信息的对象
-- **返回值**: 无
-- **类型**: 广播事件
-- **状态**: 未测试
+- **Purpose**: Node component added.
+- **Parameters**: Object containing node and component info.
+- **Return Value**: None.
+- **Type**: Broadcast Event.
+- **Status**: Untested.
 
 ### `scene:node-component-removed`
 
-- **用途**: 节点组件移除
-- **参数**: 包含节点和组件信息的对象
-- **返回值**: 无
-- **类型**: 广播事件
-- **状态**: 未测试
+- **Purpose**: Node component removed.
+- **Parameters**: Object containing node and component info.
+- **Return Value**: None.
+- **Type**: Broadcast Event.
+- **Status**: Untested.
 
-## 广播事件
+## Broadcast Events
 
-以下是专门用于广播给渲染进程的事件，通常由主进程发出，渲染进程接收：
+Common events broadcasted to the renderer process (usually from the main process):
 
 - `scene:saved`
 - `scene:play-on-device`
@@ -1460,9 +1460,9 @@
 - `scene:node-component-removed`
 - `package-template:hello`
 
-## 渲染进程监听的事件
+## Renderer Process Listeners
 
-以下是渲染进程主动监听的事件，这些事件通常由主进程发出：
+Events actively listened to by the renderer process:
 
 - `asset-db:assets-moved`
 - `asset-db:assets-deleted`

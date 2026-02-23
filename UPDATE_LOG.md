@@ -1,122 +1,122 @@
-# Cocos Creator MCP Bridge 更新与修复日志
+# Cocos Creator MCP Bridge Update & Fix Log
 
-本文件详细记录了本次开发周期内的所有功能更新、性能改进以及关键问题的修复过程。
+This document records all functional updates, performance improvements, and critical bug fixes during the development cycle.
 
-## 一、 新增功能与工具
+## I. New Features & Tools
 
-### 1. `manage_shader` 工具 (新增)
+### 1. `manage_shader` Tool (New)
 
-- **功能**: 实现了对着色器 (`.effect`) 资源的全生命周期管理。
-- **操作**: 支持 `create` (带默认模板), `read`, `write`, `delete`, `get_info`。
-- **意义**: 补全了资源管理链条，使得从编写代码到应用材质的流程可以完全通过 MCP 驱动。
+- **Function**: Implements full lifecycle management for shader (`.effect`) assets.
+- **Operations**: Supports `create` (with default template), `read`, `write`, `delete`, and `get_info`.
+- **Significance**: Completes the asset management chain, allowing the workflow from code writing to material application to be fully driven by MCP.
 
-### 2. 材质管理增强 (`manage_material`)
+### 2. Material Management Enhancement (`manage_material`)
 
-- **2.4.x 深度适配**: 彻底重构了材质存储结构，支持 Cocos Creator 2.4.x 的 `_effectAsset` 和 `_techniqueData` 格式。
-- **新增 `update` 操作**: 支持增量更新材质的宏定义 (`defines`) 和 Uniform 参数 (`props`)，无需覆盖整个文件。
+- **2.4.x Deep Adaptation**: Completely refactored material storage structure to support Cocos Creator 2.4.x `_effectAsset` and `_techniqueData` formats.
+- **New `update` Operation**: Supports incremental updates of material macro definitions (`defines`) and Uniform parameters (`props`) without overwriting the entire file.
 
-### 3. 组件管理增强 (`manage_components`)
+### 3. Component Management Enhancement (`manage_components`)
 
-- **资源数组支持**: 攻克了 `materials` 等数组属性无法通过 UUID 赋值的难题。
-- **智能异步加载**: 实现了并发加载多个资源 UUID 的逻辑，并在加载完成后自动同步到场景节点。
-
----
-
-## 二、 关键问题修复 (Technical Post-mortem)
-
-### 1. 材质在 Inspector 面板中显示为空
-
-- **原因**: 初始代码使用了错误的 JSON 字段 (如 `effects`)，不符合 2.4.x 的私有属性序列化规范。
-- **修复**: 将字段改为 `_effectAsset` (UUID 引用) 和 `_techniqueData` (包含 `props` 和 `defines`)。
-
-### 2. Sprite 材质赋值失效
-
-- **原因**: 直接向 `cc.Sprite.materials` 赋值字符串数组会导致引擎内部类型不匹配；且直接修改内存属性不会触发编辑器 UI 刷新。
-- **修复**: 在 `scene-script.js` 中拦截数组型资源赋值，先通过 `cc.AssetLibrary` 加载资源对象，再使用 `scene:set-property` IPC 消息强制刷新编辑器 Inspector 面板。
-
-### 3. 场景克隆与 `Editor.assetdb` 兼容性
-
-- **原因**: Cocos 2.4.x 的主进程 `Editor.assetdb` 缺少 `loadAny` 方法，导致原本的 `duplicate` 逻辑崩溃。
-- **修复**: 改用 Node.js 原生 `fs` 模块直接读取源文件流并创建新资源。
+- **Asset Array Support**: Overcame the challenge of assigning array properties like `materials` via UUIDs.
+- **Intelligent Async Loading**: Implemented logic for concurrent loading of multiple asset UUIDs, automatically synchronizing to scene nodes upon completion.
 
 ---
 
-## 三、 文档与规范化建设
+## II. Critical Bug Fixes (Technical Post-mortem)
 
-### 1. 全域本地化 (Simplified Chinese)
+### 1. Material Displaying as Empty in Inspector
 
-- **代码注释**: 将 `main.js` 和 `scene-script.js` 中所有关键逻辑的英文注释转换为准确的中文说明。
-- **JSDoc 补充**: 为核心函数补充了详尽的 JSDoc 参数说明，提升代码可读性。
-- **日志输出**: 所有控制台日志 (`addLog`) 和错误提示均已中文化，方便国内开发者排查。
+- **Cause**: Initial code used incorrect JSON fields (e.g., `effects`), which did not comply with 2.4.x private property serialization standards.
+- **Fix**: Changed fields to `_effectAsset` (UUID reference) and `_techniqueData` (containing `props` and `defines`).
 
-### 2. AI 安全守则 (Safety Rules)
+### 2. Sprite Material Assignment Failure
 
-- **守则注入**: 在所有 MCP 工具的描述中注入了【AI 安全守则】，强调“先校验再操作”、“资源赋 UUID”等原则。
-- **Schema 优化**: 优化了工具的描述文本，使其在 AI 客户端（如 Cursor）中展现更清晰的引导。
+- **Cause**: Directly assigning a string array to `cc.Sprite.materials` caused internal engine type mismatches; also, modifying memory properties directly does not trigger editor UI refresh.
+- **Fix**: Intercepted array-type asset assignments in `scene-script.js`, loaded asset objects via `cc.AssetLibrary` first, and then used the `scene:set-property` IPC message to force refresh the editor Inspector panel.
 
----
+### 3. Scene Cloning & `Editor.assetdb` Compatibility
 
-## 四、 纹理与节点变换增强 (Texture & Transform Updates)
-
-### 1. `manage_texture` 工具增强
-
-- **新增 `update` 操作**: 支持修改现有纹理的类型（如 `texture` -> `sprite`）和九宫格边距 (`border`)。
-- **Meta 加载健壮性**: 修复了 `Editor.assetdb.loadMeta` 在某些情况下返回空值的问题，增加了读取文件系统 `.meta` 文件的 Fallback 机制。
-- **多版本兼容**: 针对 Cocos Creator 不同版本 `.meta` 文件结构差异（数组 vs 独立字段），实现了对 9-slice 数据写入的自动兼容。
-
-### 2. `update_node_transform` 工具增强
-
-- **新增尺寸控制**: 添加了 `width` 和 `height` 参数，允许 AI 直接调整节点大小（对于测试九宫格拉伸效果至关重要）。
-
-### 3. 关键 Bug 修复
-
-- **属性批量应用中断**: 修复了 `scene-script.js` 中 `applyProperties` 函数在处理 Asset 类型属性时错误使用 `return` 导致后续属性（如 `type`）被忽略的问题。现在改为 `continue`，确保所有属性都能被正确应用。
-
-### 6.2 菜单映射清理
-
-- **移除冗余**: 清理了 `execute_menu_item` 中过时或不稳定的菜单映射 (如 `File/Save`, `Edit/Delete` 等)。
-- **规范操作**: 强制引导 AI 使用 `delete-node:UUID` 或专用 MCP 工具 (`save_scene`, `manage_undo`)，提高了自动化流程的稳定性。
-
-## 六、 总结
-
-本次更新不仅修复了制约生产力的材质与资源同步 bug，还通过引入 `manage_shader` 和全方位的文档中文化，极大提升了开发者（及 AI 助手）在 Cocos Creator 2.4.x 环境下的操作体验。针对菜单执行工具的清理进一步规范了自动化操作流程，减少了潜在的不稳定性。
+- **Cause**: The main process `Editor.assetdb` in Cocos 2.4.x lacks the `loadAny` method, causing the original `duplicate` logic to crash.
+- **Fix**: Switched to using the Node.js native `fs` module to read the source file stream directly and create new assets.
 
 ---
 
-## 七、 并发安全与防卡死机制 (2025-02-12)
+## III. Documentation & Standardization
 
-### 1. 指令队列 (CommandQueue) — 核心防卡死改造
+### 1. Full Localization (English)
 
-- **问题**: AI 客户端连续快速发送 `delete-node` → `refresh_editor` → `search_project` 时，多个请求并发进入 `handleMcpCall`，`AssetDB.refresh()` 与后续操作争夺 I/O 和 IPC 通道，导致编辑器主线程阻塞、Scene 面板无响应。
-- **修复**: 在 HTTP `/call-tool` 入口新增 `enqueueCommand` / `processNextCommand` 队列机制，所有 MCP 工具调用强制串行执行，前一个指令回调完成后才处理下一个。
-- **异常保护**: 队列在 `processNextCommand` 的 `catch` 块中有防死锁保护，即使某个指令抛出异常也不会永久阻塞后续指令。
-- **可观测性**: 每条请求日志中显示 `(队列长度: N)`，方便排查积压问题。
+- **Code Comments**: Converted all critical logic comments in `main.js` and `scene-script.js` to English.
+- **JSDoc Additions**: Added detailed JSDoc parameter descriptions for core functions to improve code readability.
+- **Log Output**: All console logs (`addLog`) and error prompts have been converted to English for easier troubleshooting.
 
-### 2. IPC 超时保护 (callSceneScriptWithTimeout)
+### 2. AI Safety Rules
 
-- **问题**: `Editor.Scene.callSceneScript` 无超时机制，Scene 面板阻塞时回调永不返回，导致 HTTP 连接和队列双重堆积。
-- **修复**: 新增 `callSceneScriptWithTimeout` 统一包装函数（默认 15 秒超时），覆盖全部 9 处 `callSceneScript` 调用点。
-- **超时日志**: `[超时] callSceneScript "方法名" 超过 15000ms 未响应`。
+- **Rule Injection**: Injected [AI Safety Rules] into all MCP tool descriptions, emphasizing principles like "verify before operation" and "assign assets via UUID".
+- **Schema Optimization**: Optimized tool description texts to provide clearer guidance in AI clients (e.g., Cursor).
 
-### 3. `batchExecute` 串行化
+---
 
-- **问题**: 原实现使用 `forEach` 并行派发所有子操作，多个 `AssetDB` 操作同时执行引发编辑器卡死。
-- **修复**: 改为串行链式执行（`next()` 递归调用），确保每个操作完成后再执行下一个。
+## IV. Texture & Transform Updates
 
-### 4. `refresh_editor` 路径参数优化与警示强化
+### 1. `manage_texture` Tool Enhancement
 
-- **工具 Schema 强化**: 在 `manage_editor` 的工具描述中加入红色警示符号 (⚠️) 和“极为重要”字样，明确要求 AI 必须指定 `path`。
-- **AI 安全守则第 4 条**: 在全局 `globalPrecautions` 中新增第四条守则，强制要求 AI 避免刷新全局资源。
-- **实测效果**: 生产项目中，从默认全量刷新 **172 秒** 降至指定目录刷新 **19 秒**。
+- **New `update` Operation**: Supports modifying existing texture types (e.g., `texture` -> `sprite`) and 9-slice margins (`border`).
+- **Meta Loading Robustness**: Fixed an issue where `Editor.assetdb.loadMeta` returned null in some cases, adding a fallback mechanism to read `.meta` files from the filesystem.
+- **Multi-version Compatibility**: Implemented automatic compatibility for 9-slice data writing for different Cocos Creator versions' `.meta` file structures (array vs. independent fields).
 
-### 5. 杂项修复
+### 2. `update_node_transform` Tool Enhancement
 
-- **清理死代码**: 删除 `/list-tools` 路由中重复的 `res.writeHead / res.end` 调用。
-- **文档更新**: `注意事项.md` 新增第 9 章「并发安全与防卡死机制」，记录 CommandQueue 和 IPC 超时两个防护机制。
+- **New Size Control**: Added `width` and `height` parameters, allowing AI to directly adjust node size (crucial for testing 9-slice stretching effects).
 
-### 6. 场景与预制体工具增强
+### 3. Critical Bug Fixes
 
-- **新增 `open_prefab` 工具**: 解决了直接打开预制体进入编辑模式的问题。通过使用正确的 IPC 消息 `scene:enter-prefab-edit-mode` (并结合 `Editor.Ipc.sendToAll`)，使得 AI 可以精准操控预制体的编辑流程，而不再局限于场景跳转。
-- **优化预制体创建稳定性 (`create_node` + `prefab_management`)**:
-    - 在创建物理目录后强制执行 `Editor.assetdb.refresh`，确保 AssetDB 即时同步。
-    - 将节点重命名与预制体创建指令之间的安全延迟从 100ms 增加至 300ms，消除了重命名未完成导致创建失败的竞态条件。
+- **Batch Property Application Interruption**: Fixed an issue in `scene-script.js` where the `applyProperties` function incorrectly used `return` when handling Asset type properties, causing subsequent properties (like `type`) to be ignored. It now uses `continue` to ensure all properties are applied correctly.
+
+### 6.2 Menu Mapping Cleanup
+
+- **Redundancy Removal**: Cleaned up outdated or unstable menu mappings in `execute_menu_item` (e.g., `File/Save`, `Edit/Delete`, etc.).
+- **Standardized Operations**: Forced AI guidance to use `delete-node:UUID` or dedicated MCP tools (`save_scene`, `manage_undo`), improving the stability of automated workflows.
+
+## VI. Summary
+
+This update not only fixes material and asset synchronization bugs that hindered productivity but also greatly enhances the developer (and AI assistant) experience in the Cocos Creator 2.4.x environment by introducing `manage_shader` and comprehensive documentation localization. The cleanup of the menu execution tool further standardizes automated operation workflows, reducing potential instability.
+
+---
+
+## VII. Concurrency Safety & Anti-freeze Mechanism (2025-02-12)
+
+### 1. Command Queue (CommandQueue) — Core Anti-freeze Refactor
+
+- **Problem**: When an AI client sends consecutive rapid requests like `delete-node` → `refresh_editor` → `search_project`, multiple requests enter `handleMcpCall` concurrently. `AssetDB.refresh()` competes with subsequent operations for I/O and IPC channels, leading to main thread blockages and an unresponsive Scene panel.
+- **Fix**: Introduced an `enqueueCommand` / `processNextCommand` queue mechanism at the HTTP `/call-tool` entry point. All MCP tool calls are forced to execute serially; the next command is only processed after the previous one's callback completes.
+- **Exception Protection**: The queue includes deadlock protection in the `catch` block of `processNextCommand`, ensuring that even if a command throws an exception, it won't permanently block subsequent commands.
+- **Observability**: Each request log displays `(Queue Length: N)` to help troubleshoot backlog issues.
+
+### 2. IPC Timeout Protection (callSceneScriptWithTimeout)
+
+- **Problem**: `Editor.Scene.callSceneScript` has no timeout mechanism. If the Scene panel is blocked, the callback never returns, causing both HTTP connections and the queue to pile up.
+- **Fix**: Added a `callSceneScriptWithTimeout` unified wrapper function (default 15-second timeout), covering all 9 `callSceneScript` call points.
+- **Timeout Log**: `[Timeout] callSceneScript "methodName" timed out after 15000ms`.
+
+### 3. `batchExecute` Serialization
+
+- **Problem**: The original implementation used `forEach` to dispatch all sub-operations in parallel, causing editor freezes when multiple `AssetDB` operations executed simultaneously.
+- **Fix**: Changed to serial chain execution (`next()` recursive calls), ensuring each operation completes before the next one starts.
+
+### 4. `refresh_editor` Path Parameter Optimization & Enhanced Warnings
+
+- **Tool Schema Enhancement**: Added a red warning symbol (⚠️) and "Extremely Important" wording to the `manage_editor` tool description, explicitly requiring AI to specify a `path`.
+- **AI Safety Rule #4**: Added a fourth rule to the global `globalPrecautions`, mandating that AI avoid refreshing global assets.
+- **Result**: In production projects, refresh time dropped from **172 seconds** (default full refresh) to **19 seconds** (specified directory refresh).
+
+### 5. Miscellaneous Fixes
+
+- **Dead Code Cleanup**: Removed duplicate `res.writeHead / res.end` calls in the `/list-tools` route.
+- **Document Update**: Added Chapter 9, "Concurrency Safety & Anti-freeze Mechanism," to `NOTES.md` to record the CommandQueue and IPC timeout mechanisms.
+
+### 6. Scene & Prefab Tool Enhancements
+
+- **New `open_prefab` Tool**: Resolved the issue of opening prefabs directly into edit mode. By using the correct IPC message `scene:enter-prefab-edit-mode` (combined with `Editor.Ipc.sendToAll`), AI can precisely control the prefab editing process instead of being limited to scene jumps.
+- **Optimized Prefab Creation Stability (`create_node` + `prefab_management`)**:
+    - Forced `Editor.assetdb.refresh` after creating physical directories to ensure immediate AssetDB synchronization.
+    - Increased the safety delay between node renaming and prefab creation from 100ms to 300ms, eliminating race conditions where renaming wasn't completed before creation.
