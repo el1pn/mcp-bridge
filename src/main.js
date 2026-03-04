@@ -27,7 +27,12 @@ let isProcessingCommand = false;
  * @param {Function} fn 接受 done 回调的函数，fn(done) 中操作完成后必须调用 done()
  * @returns {Promise} 操作完成后 resolve
  */
+const MAX_QUEUE_LENGTH = 100;
 function enqueueCommand(fn) {
+    if (commandQueue.length >= MAX_QUEUE_LENGTH) {
+        addLog("warn", `[CommandQueue] 指令队列已满（${MAX_QUEUE_LENGTH}），拒绝新请求`);
+        return Promise.reject("队列已满，请稍后重试");
+    }
     return new Promise((resolve) => {
         // 兜底超时保护：防止 fn 内部未调用 done() 导致队列永久停滞
         const timeoutId = setTimeout(() => {
@@ -1065,7 +1070,7 @@ module.exports = {
                                         text: err
                                             ? `Error: ${err}`
                                             : typeof result === "object"
-                                              ? JSON.stringify(result, null, 2)
+                                              ? JSON.stringify(result)
                                               : result,
                                     },
                                 ],
@@ -1089,6 +1094,10 @@ module.exports = {
                             res.end(JSON.stringify(response));
                             done();
                         });
+                    }).catch((rejectReason) => {
+                        // 队列已满时返回 429
+                        res.writeHead(429);
+                        res.end(JSON.stringify({ error: String(rejectReason) }));
                     });
                 } catch (e) {
                     if (e instanceof SyntaxError) {

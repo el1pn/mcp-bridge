@@ -126,12 +126,17 @@ module.exports = {
                 }
             }
 
-            // 如果未超出深度限制，继续递归子树
+            // 如果未超出深度限制，继续递归子树（每层最多返回 50 个子节点作为安全上限）
+            const MAX_CHILDREN_PER_LEVEL = 50;
             if (currentDepth < depth && node.childrenCount > 0) {
                 nodeData.children = [];
-                for (let i = 0; i < node.childrenCount; i++) {
+                const childLimit = Math.min(node.childrenCount, MAX_CHILDREN_PER_LEVEL);
+                for (let i = 0; i < childLimit; i++) {
                     let childData = dumpNodes(node.children[i], currentDepth + 1);
                     if (childData) nodeData.children.push(childData);
+                }
+                if (node.childrenCount > MAX_CHILDREN_PER_LEVEL) {
+                    nodeData.childrenTruncated = node.childrenCount - MAX_CHILDREN_PER_LEVEL;
                 }
             }
 
